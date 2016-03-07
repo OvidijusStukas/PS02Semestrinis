@@ -47,6 +47,7 @@
         <property name="mappingResources">
             <list>
                 <value>hibernate/test.hbm.xml</value>
+                <value>hibernate/userEntity.hbm.xml</value>
             </list>
         </property>
     </bean>

@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -26,6 +27,8 @@ public class AccountHelper {
     private BaseRepository<UserEntity> userRepository;
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public enum ValidationResult {
         SUCCESS, EMAIL_ERROR, PASSWORD_ERROR, NAME_ERROR
@@ -63,14 +66,12 @@ public class AccountHelper {
     }
 
     public boolean registerUser(UserRegisterModel model){
-
-        //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         UserEntity user = new UserEntity();
 
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setEmail(model.getEmail());
-        //user.setPassword(passwordEncoder.encode(model.getPassword()));
+        user.setPassword(passwordEncoder.encode(model.getPassword()));
         user.setEnabled(1);
 
         userRepository.insertEntity(user);

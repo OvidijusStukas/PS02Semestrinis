@@ -46,7 +46,7 @@
             <id>MySQL</id>
             <properties>
                 <jdbc.username>wmsWebsite</jdbc.username>
-                <jdbc.password>g</jdbc.password>
+                <jdbc.password></jdbc.password>
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
                 <jdbc.url>jdbc:mysql://51.255.45.253/cosi_wms?useSSL=false</jdbc.url>
             </properties>
