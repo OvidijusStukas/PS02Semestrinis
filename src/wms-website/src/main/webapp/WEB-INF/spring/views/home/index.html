@@ -4,9 +4,12 @@
 </head>
 <body>
 <th:block th:include="fragments/header :: top-menu"/>
-
-INDEX<!--TODO FIX MARGINS WITH FOOTER AND HEADER -->
-
+    <div id="content-wrapper" class="container-fluid">
+        <div id="index-text-container">
+            <h4>WMS - Warehouse management system</h4>
+            <p>Sistema skirta inventoriaus administravimui.</p>
+        </div>
+    </div>
 <th:block th:include="fragments/footer :: footer"/>
 </body>
 </html>

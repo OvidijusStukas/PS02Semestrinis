@@ -3,6 +3,13 @@
 <head th:fragment="head">
     <title>Warehouse Management System</title>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;UTF-8">
+
+    <script src="/js/jquery-2.2.0.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/jquery.validate.js"></script>
+    <script src="/js/bootstrap.js"></script>
+
     <link  rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
     <link  rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
     <link  rel="stylesheet" type="text/css" href="/css/custom/site-inner.css" />
@@ -17,11 +24,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">WMS</a>
+                <a class="navbar-brand" th:href="@{/}">WMS</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li class="active"><a th:href="@{/}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a th:href="@{/accounts/}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
