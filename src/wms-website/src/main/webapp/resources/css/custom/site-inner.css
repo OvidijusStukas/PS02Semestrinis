@@ -1,0 +1,111 @@
+/* Main web configs*/
+html {
+    position: relative;
+    min-height: 100%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin-bottom: 60px;
+    margin-top: 50px;
+}
+
+/* Header configs */
+.header {
+    background-color: rgb(8, 8, 8);
+}
+
+/* Main web content configs */
+
+/* Decor elements */
+@media (min-width: 992px) {
+    .vertical-line {
+        height: 22px;
+        width: 1px;
+        border-left: 1px solid #eee;
+    }
+}
+
+@media (max-width: 991px) {
+    .vertical-line {
+        display: none;
+    }
+}
+
+#main-signin-container {
+    min-height: 100%;
+    background-image: url('/images/testloginbg.jpg');
+}
+
+#register-form {
+    margin-bottom: 10px;
+}
+
+.input-element {
+    margin-top: 5px;
+}
+
+.input-lg ~ .fa.form-control-feedback {
+    line-height: 46px;
+}
+.has-feedback-left input.form-control {
+    padding-left: 34px;
+    padding-right: 12px;
+}
+.has-feedback-left .form-control-feedback {
+    left: 0;
+}
+
+#signin-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+    border-radius: 10px;
+    min-height: 300px;
+    max-width: 400px;
+    border: solid rgba(8, 8, 8, 0.3);
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#signin-form {
+    margin: 10px;
+}
+
+#signin-option-container {
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+
+#signin-button {
+    color: rgb(230, 230, 230);
+    background-color: rgba(8, 8, 8, 0.7);
+}
+
+#signin-register-link-container {
+    margin: 5px;
+}
+
+.registration-error {
+    color: red;
+    font-weight: bold;
+}
+
+.registration-valid {
+    border-color: green;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+/* Footer configs */
+#footer-content {
+    margin-top: 20px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    color: #9d9d9d;
+}

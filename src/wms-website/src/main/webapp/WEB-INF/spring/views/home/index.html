@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>WMS</title>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: head">
 </head>
 <body>
-    Index file
+<th:block th:include="fragments/header :: top-menu"/>
+
+INDEX<!--TODO FIX MARGINS WITH FOOTER AND HEADER -->
+
+<th:block th:include="fragments/footer :: footer"/>
 </body>
 </html>

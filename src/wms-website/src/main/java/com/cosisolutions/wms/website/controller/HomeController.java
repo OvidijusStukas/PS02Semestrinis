@@ -17,4 +17,10 @@ public class HomeController {
     public ModelAndView index() {
         return new ModelAndView("home/index");
     }
+
+    @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
+    public ModelAndView Dashboard() {
+
+        return new ModelAndView("home/dashboard");
+    }
 }

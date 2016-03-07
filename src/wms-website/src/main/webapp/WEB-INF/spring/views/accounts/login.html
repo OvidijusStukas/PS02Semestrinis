@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+</head>
+<body>
+<th:block th:include="fragments/header :: top-menu"/>
+
+<div id="main-signin-container" class="container-flex">
+    <div id="signin-container" class="container text-center">
+        <h2 id="signin-heading" class="form-signin-heading">Sign in</h2>
+        <hr>
+        <p th:if="${loginError}" id="signin-error">Wrong Email or Password</p>
+        <form modelAttribute="loginUser" th:action="@{/login}" method="POST" enctype="utf8" id="signin-form" class="form-signin">
+            <div class="form-group has-feedback has-feedback-left">
+                <input id="signin-email" name="signin-email" type="email" class="form-control input-element" placeholder="Email Address" required autofocus/>
+                <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
+            </div>
+            <div class="form-group has-feedback has-feedback-left">
+                <input  id="signin-password" name="signin-password" type="password" class="form-control input-element" placeholder="Password" required/>
+                <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+            </div>
+            <hr>
+            <div id="signin-option-container">
+                <label class="pull-left">
+                    <input path="rememberMe" type="checkbox" value="remember-me"/> Remember me
+                </label>
+                <!--<div id="signin-option-split" class="vertical-line col-md-1"></div>-->
+                <div id="signin-recover-link-container" class="pull-right">
+                    <a id="signin-recover-link" class="text-center" href="#">Recover password</a>
+                    <!-- TODO ADD RECOVERY -->
+                </div>
+            </div>
+            <button id="signin-button" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
+            <div id="signin-register-link-container">
+                <a id="signin-register-link" class="text-center" th:href="@{/accounts/registration}">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:include="fragments/footer :: footer"/>
+<th:block th:include="fragments/header :: scripts"/>
+</body>
+</html>
