@@ -19,11 +19,38 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Logging properties -->
+        <log4j.logging.file>${project.build.directory}/${project.build.finalName}.log</log4j.logging.file>
+
         <!-- Dependency versions -->
-        <maven.compiler.version>3.3</maven.compiler.version>
-        <spring.version>4.2.4.RELEASE</spring.version>
+        <mysql.connector.version>5.1.38</mysql.connector.version>
+        <maven.compiler.version>3.5.1</maven.compiler.version>
+        <thymeleaf.version>3.0.0.BETA02</thymeleaf.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
+        <apache.dbcp2.version>2.1.1</apache.dbcp2.version>
+        <spring.version>4.2.5.RELEASE</spring.version>
         <servlet.version>4.0.0-b01</servlet.version>
+        <weaver.version>1.8.8</weaver.version>
+        <slf4j.version>1.7.18</slf4j.version>
+
+        <!-- Profile specific properties -->
+        <jdbc.url/>
+        <jdbc.driver/>
+        <jdbc.username/>
+        <jdbc.password/>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>MySQL</id>
+            <properties>
+                <jdbc.username>wmsWebsite</jdbc.username>
+                <jdbc.password></jdbc.password>
+                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://51.255.45.253/cosi_wms?useSSL=false</jdbc.url>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -33,19 +60,74 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${weaver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>${apache.dbcp2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>WMS-website</finalName>
-
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
