@@ -2,6 +2,9 @@ package com.cosisolutions.wms.website.helpers;
 
 import com.cosisolutions.wms.website.entity.UserEntity;
 import com.cosisolutions.wms.website.models.UserRegisterModel;
+import com.cosisolutions.wms.website.repository.BaseRepository;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +23,7 @@ public class AccountHelper {
     public static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$";
 
     @Autowired
-    private GenericRepository<UserEntity> userRepository;
+    private BaseRepository<UserEntity> userRepository;
     @Autowired
     private SessionFactory sessionFactory;
 
