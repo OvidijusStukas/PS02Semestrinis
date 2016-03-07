@@ -7,10 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-=======
->>>>>>> upstream/master
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -70,11 +67,6 @@ public class AccountHelper {
     }
 
     public boolean registerUser(UserRegisterModel model){
-<<<<<<< HEAD
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-=======
->>>>>>> upstream/master
         UserEntity user = new UserEntity();
 
         user.setFirstName(model.getFirstName());
