@@ -22,6 +22,7 @@
         <!-- Dependency versions -->
         <mysql.connector.version>5.1.38</mysql.connector.version>
         <maven.compiler.version>3.3</maven.compiler.version>
+        <thymeleaf.version>3.0.0.BETA01</thymeleaf.version>
         <hibernate.version>5.1.0.Final</hibernate.version>
         <apache.dbcp2.version>2.1.1</apache.dbcp2.version>
         <spring.version>4.2.4.RELEASE</spring.version>
@@ -92,6 +93,16 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

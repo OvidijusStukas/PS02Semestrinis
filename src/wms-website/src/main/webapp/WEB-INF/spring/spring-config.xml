@@ -69,4 +69,21 @@
     </aop:config>
     <!-- Database configuration END -->
 
+    <!-- Thymeleaf configuration BEGIN -->
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/spring/views/"/>
+        <property name="templateMode" value="HTML" />
+        <property name="cacheable" value="false"/>
+        <property name="suffix" value=".html" />
+    </bean>
+
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+    <!-- Thymeleaf configuration END -->
 </beans>
