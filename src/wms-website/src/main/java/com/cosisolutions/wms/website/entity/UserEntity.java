@@ -2,16 +2,16 @@ package com.cosisolutions.wms.website.entity;
 
 import java.io.Serializable;
 
-/**
- * Created by CosISolutions on 2016-03-07.
- */
 public class UserEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
-    private int enabled;
+    private boolean enabled;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private String role;
 
     public int getId() {
         return id;
@@ -22,11 +22,11 @@ public class UserEntity implements Serializable {
         this.id = id;
     }
 
-    public int getEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -60,5 +60,13 @@ public class UserEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

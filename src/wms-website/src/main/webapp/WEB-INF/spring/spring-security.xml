@@ -22,8 +22,8 @@
         <authentication-provider>
             <password-encoder ref="encoder" />
             <jdbc-user-service data-source-ref="dataSource"
-                               users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
-                               authorities-by-username-query="SELECT email, user_role AS role FROM users WHERE email = ?" />
+                               users-by-username-query="SELECT email, password, enabled FROM wms_dev.users WHERE email = ?"
+                               authorities-by-username-query="SELECT email, user_role AS role FROM wms_dev.users WHERE email = ?" />
         </authentication-provider>
     </authentication-manager>
 

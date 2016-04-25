@@ -8,9 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Created by CosISolutions on 2016-03-07.
- */
 @Controller
 @RequestMapping(value = "/accounts")
 public class AccountsController {

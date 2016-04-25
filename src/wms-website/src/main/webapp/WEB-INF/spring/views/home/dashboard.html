@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/xml/ns/javaee"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header :: head">
 </head>
 <body>
@@ -9,18 +10,18 @@
 LOGIN DASHBOARD<!--TODO FIX MARGINS WITH FOOTER AND HEADER -->
 
 <div sec:authorize="hasRole('ROLE_USER')">
-    <!-- For login user -->
+  <!-- For login user -->
 
-    <form th:action="@{/j_spring_security_check}" action="${logoutUrl}" method="post" id="logoutForm">
-        <input type="hidden" name="${_csrf.parameterName}"
-               value="${_csrf.token}" />
-    </form>
+  <form th:action="@{/j_spring_security_check}" action="${logoutUrl}" method="post" id="logoutForm">
+    <input type="hidden" name="${_csrf.parameterName}"
+           value="${_csrf.token}" />
+  </form>
 
-    <script>
-        function formSubmit() {
-            document.getElementById("logoutForm").submit();
-        }
-    </script>
+  <script>
+    function formSubmit() {
+      document.getElementById("logoutForm").submit();
+    }
+  </script>
 </div>
 
 <th:block th:include="fragments/footer :: footer"/>

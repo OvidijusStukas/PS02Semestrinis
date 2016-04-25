@@ -10,7 +10,7 @@
         <h2 id="signin-heading" class="form-signin-heading">Sign in</h2>
         <hr>
         <p th:if="${loginError}" id="signin-error">Wrong Email or Password</p>
-        <form modelAttribute="loginUser" th:action="@{/login}" method="POST" enctype="utf8" id="signin-form" class="form-signin">
+        <form th:action="@{/login}" method="POST" id="signin-form" class="form-signin">
             <div class="form-group has-feedback has-feedback-left">
                 <input id="signin-email" name="signin-email" type="email" class="form-control input-element" placeholder="Email Address" required autofocus/>
                 <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
@@ -22,7 +22,7 @@
             <hr>
             <div id="signin-option-container">
                 <label class="pull-left">
-                    <input path="rememberMe" type="checkbox" value="remember-me"/> Remember me
+                    <input type="checkbox" value="remember-me"/> Remember me
                 </label>
                 <!--<div id="signin-option-split" class="vertical-line col-md-1"></div>-->
                 <div id="signin-recover-link-container" class="pull-right">

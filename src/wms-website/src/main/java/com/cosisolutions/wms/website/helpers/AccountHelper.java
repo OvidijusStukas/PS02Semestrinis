@@ -14,15 +14,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * Created by CosISolutions on 2016-03-07.
- */
-
 @Component
 public class AccountHelper {
     // Regex for searching for:
     // At least one upper case letter, at least one digit, at least one special character and at least 8 characters long
-    public static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$";
+    private static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$";
 
     @Autowired
     private BaseRepository<UserEntity> userRepository;
@@ -56,12 +52,12 @@ public class AccountHelper {
         if(model.getLastName().isEmpty() || model.getLastName() == null)
             return ValidationResult.NAME_ERROR;
 
-        if(model.getPassword() != null && model.getPassword().equals(model.getPasswordRepeat())){
+        /*if(model.getPassword() != null && model.getPassword().equals(model.getPasswordRepeat())){
 
             if(!model.getPassword().matches(PASSWORD_REGEX))
                 return ValidationResult.PASSWORD_ERROR;
 
-        }
+        }*/
 
         return ValidationResult.SUCCESS;
     }
@@ -72,8 +68,9 @@ public class AccountHelper {
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setEmail(model.getEmail());
+        user.setEnabled(true);
+        user.setRole("ROLE_ADMIN");
         user.setPassword(passwordEncoder.encode(model.getPassword()));
-        user.setEnabled(1);
 
         userRepository.insertEntity(user);
         return true;
