@@ -6,29 +6,29 @@
              http://www.springframework.org/schema/security
              http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-    <http auto-config="true">
-        <intercept-url pattern="/" access="permitAll" />
-        <intercept-url pattern="/dashboard**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-        <form-login login-page="/accounts/login"
-                    default-target-url="/dashboard/"
-                    authentication-failure-url="/accounts/login-error"
-                    username-parameter="signin-email"
-                    password-parameter="signin-password" />
-        <logout />
-    </http>
+  <http auto-config="true">
+    <intercept-url pattern="/" access="permitAll" />
+    <intercept-url pattern="/dashboard**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+    <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
+    <form-login login-page="/accounts/login"
+                default-target-url="/dashboard/"
+                authentication-failure-url="/accounts/login-error"
+                username-parameter="signin-email"
+                password-parameter="signin-password" />
+    <logout />
+  </http>
 
-    <authentication-manager>
-        <authentication-provider>
-            <password-encoder ref="encoder" />
-            <jdbc-user-service data-source-ref="dataSource"
-                               users-by-username-query="SELECT email, password, enabled FROM wms_dev.users WHERE email = ?"
-                               authorities-by-username-query="SELECT email, user_role AS role FROM wms_dev.users WHERE email = ?" />
-        </authentication-provider>
-    </authentication-manager>
+  <authentication-manager>
+    <authentication-provider>
+      <password-encoder ref="encoder" />
+      <jdbc-user-service data-source-ref="dataSource"
+                         users-by-username-query="SELECT email, password, enabled FROM wms_dev.users WHERE email = ?"
+                         authorities-by-username-query="SELECT email, user_role AS role FROM wms_dev.users WHERE email = ?" />
+    </authentication-provider>
+  </authentication-manager>
 
-    <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <beans:constructor-arg name="strength" value="11" />
-    </beans:bean>
+  <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    <beans:constructor-arg name="strength" value="11" />
+  </beans:bean>
 
 </beans:beans>

@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping(value = "/accounts")
 public class AccountsController {
@@ -46,6 +49,17 @@ public class AccountsController {
         return "true";
     }
 
+    @RequestMapping(value = {"account/edit"}, method = RequestMethod.GET)
+    public ModelAndView editUserAccount(@RequestParam(value = "id") int id) {
+        if(id == 0)
+            return new ModelAndView("home/dashboard");
+
+        Map<String, Object> data = new HashMap<>(1);
+        data.put("user", accountHelper.getUser(id));
+
+        return new ModelAndView("accounts/edit", data);
+    }
+
     // Login form with error
     @RequestMapping("login-error")
     public String loginError(Model model) {
@@ -55,7 +69,7 @@ public class AccountsController {
     }
 
     @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
-    public String logout(){
-        return "error/404.html";
+    public ModelAndView logout(){
+        return new ModelAndView("errors/403");
     }
 }
