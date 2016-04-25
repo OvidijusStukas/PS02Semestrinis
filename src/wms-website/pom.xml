@@ -24,15 +24,15 @@
 
         <!-- Dependency versions -->
         <spring.security.version>4.0.4.RELEASE</spring.security.version>
-        <mysql.connector.version>5.1.38</mysql.connector.version>
+        <mysql.connector.version>6.0.2</mysql.connector.version>
         <maven.compiler.version>3.5.1</maven.compiler.version>
-        <thymeleaf.version>3.0.0.BETA02</thymeleaf.version>
+        <thymeleaf.version>3.0.0.BETA03</thymeleaf.version>
         <hibernate.version>5.1.0.Final</hibernate.version>
         <apache.dbcp2.version>2.1.1</apache.dbcp2.version>
         <spring.version>4.2.5.RELEASE</spring.version>
         <servlet.version>4.0.0-b01</servlet.version>
-        <weaver.version>1.8.8</weaver.version>
-        <slf4j.version>1.7.18</slf4j.version>
+        <weaver.version>1.8.9</weaver.version>
+        <slf4j.version>1.7.21</slf4j.version>
 
         <!-- Profile specific properties -->
         <jdbc.url/>
@@ -47,7 +47,7 @@
             <properties>
                 <jdbc.username>wmsWebsite</jdbc.username>
                 <jdbc.password></jdbc.password>
-                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.driver>com.mysql.cj.jdbc.Driver</jdbc.driver>
                 <jdbc.url>jdbc:mysql://51.255.45.253/cosi_wms?useSSL=false</jdbc.url>
             </properties>
         </profile>
