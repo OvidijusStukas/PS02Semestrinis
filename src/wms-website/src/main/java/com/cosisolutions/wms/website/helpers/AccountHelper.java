@@ -27,6 +27,10 @@ public class AccountHelper {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public UserEntity getUser(int id) {
+        return userRepository.getEntity(UserEntity.class, id);
+    }
+
     public enum ValidationResult {
         SUCCESS, EMAIL_ERROR, PASSWORD_ERROR, NAME_ERROR
     }
