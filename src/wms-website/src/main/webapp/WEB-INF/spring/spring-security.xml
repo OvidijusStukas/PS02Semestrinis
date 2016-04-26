@@ -1,34 +1,39 @@
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-             http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+             xmlns:sec="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="
+             http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
              http://www.springframework.org/schema/security
-             http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+             http://www.springframework.org/schema/security/spring-security.xsd">
 
-  <http auto-config="true">
-    <intercept-url pattern="/" access="permitAll" />
-    <intercept-url pattern="/dashboard**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-    <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-    <form-login login-page="/accounts/login"
+  <sec:http auto-config="true" use-expressions="true">
+    <sec:intercept-url pattern="/dashboard/**" access="isAuthenticated()" />
+
+    <sec:access-denied-handler error-page="/accounts/403"/>
+
+    <sec:form-login login-page="/accounts/login"
                 default-target-url="/dashboard/"
                 authentication-failure-url="/accounts/login-error"
                 username-parameter="signin-email"
                 password-parameter="signin-password" />
-    <logout />
-  </http>
 
-  <authentication-manager>
-    <authentication-provider>
-      <password-encoder ref="encoder" />
-      <jdbc-user-service data-source-ref="dataSource"
-                         users-by-username-query="SELECT email, password, enabled FROM wms_dev.users WHERE email = ?"
-                         authorities-by-username-query="SELECT email, user_role AS role FROM wms_dev.users WHERE email = ?" />
-    </authentication-provider>
-  </authentication-manager>
+    <sec:logout logout-success-url="/accounts/logout"/>
+    <sec:csrf/>
+  </sec:http>
 
-  <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-    <beans:constructor-arg name="strength" value="11" />
-  </beans:bean>
+  <sec:authentication-manager>
+    <sec:authentication-provider>
+      <sec:password-encoder ref="encoder" />
+      <sec:jdbc-user-service
+        data-source-ref="dataSource"
+        users-by-username-query="SELECT email, password, enabled FROM wms_dev.users WHERE email = ?"
+        authorities-by-username-query="SELECT email, user_role AS role FROM wms_dev.users WHERE email = ?" />
+    </sec:authentication-provider>
+  </sec:authentication-manager>
 
-</beans:beans>
+  <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    <constructor-arg name="strength" value="11" />
+  </bean>
+
+</beans>

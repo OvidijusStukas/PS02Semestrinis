@@ -75,7 +75,7 @@ public class AccountsController {
         return "accounts/login";
     }
 
-    @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/403"}, method = RequestMethod.GET)
     public ModelAndView logout(){
         return new ModelAndView("errors/403");
     }
