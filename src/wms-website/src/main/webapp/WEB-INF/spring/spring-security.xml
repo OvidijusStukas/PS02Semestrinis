@@ -18,7 +18,7 @@
                 username-parameter="signin-email"
                 password-parameter="signin-password" />
 
-    <sec:logout logout-success-url="/accounts/logout"/>
+    <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
     <sec:csrf/>
   </sec:http>
 
