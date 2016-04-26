@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head">
-</head>
+<head th:replace="fragments/header :: head"></head>
 <body>
 <th:block th:include="fragments/header :: top-menu"/>
-  <p th:text="${userRegisterModel.getLastName()}"></p>
+
+<div class="container">
+
+  <form id="account-edit" th:action="@{/accounts/edit}" th:object="${userEntity}" method="POST">
+    <input th:name="id" th:value="*{id}" type="hidden">
+    <input th:name="password" th:value="*{password}" type="hidden">
+    <input th:name="role" th:value="*{role}" type="hidden">
+    <input th:name="email" th:field="*{email}" type="email" class="form-control" placeholder="Email Address" required autofocus/>
+    <input th:name="firstname" th:field="*{firstName}" type="text" class="form-control" placeholder="First Name" required/>
+    <input th:name="lastname" th:field="*{lastName}" type="text" class="form-control" placeholder="Last Name" required />
+    <button class="btn btn-lg btn-default btn-block" type="submit">Save</button>
+  </form>
+</div>
+
 <th:block th:include="fragments/footer :: footer"/>
 <th:block th:include="fragments/header :: scripts"/>
 </body>

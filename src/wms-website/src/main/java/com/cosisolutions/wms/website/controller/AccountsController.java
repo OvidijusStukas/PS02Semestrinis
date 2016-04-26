@@ -1,5 +1,6 @@
 package com.cosisolutions.wms.website.controller;
 
+import com.cosisolutions.wms.website.entity.UserEntity;
 import com.cosisolutions.wms.website.helpers.AccountHelper;
 import com.cosisolutions.wms.website.models.UserRegisterModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/accounts")
@@ -49,15 +47,24 @@ public class AccountsController {
         return "true";
     }
 
-    @RequestMapping(value = {"account/edit"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"edit"}, method = RequestMethod.GET)
     public ModelAndView editUserAccount(@RequestParam(value = "id") int id) {
         if(id == 0)
             return new ModelAndView("home/dashboard");
 
-        Map<String, Object> data = new HashMap<>(1);
-        data.put("user", accountHelper.getUser(id));
+        ModelAndView modelAndView = new ModelAndView("accounts/edit");
+        modelAndView.addObject("userEntity", accountHelper.getUser(id));
 
-        return new ModelAndView("accounts/edit", data);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"edit"}, method = RequestMethod.POST)
+    public ModelAndView editUserAccount(@ModelAttribute UserEntity userEntity) {
+        accountHelper.saveUser(userEntity);
+        ModelAndView modelAndView = new ModelAndView("accounts/edit");
+        modelAndView.addObject("userEntity", accountHelper.getUser(userEntity.getId()));
+
+        return modelAndView;
     }
 
     // Login form with error

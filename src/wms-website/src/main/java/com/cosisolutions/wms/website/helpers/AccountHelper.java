@@ -7,10 +7,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 
 import java.util.List;
 
@@ -29,6 +27,10 @@ public class AccountHelper {
 
     public UserEntity getUser(int id) {
         return userRepository.getEntity(UserEntity.class, id);
+    }
+
+    public void saveUser(UserEntity userEntity) {
+        userRepository.updateEntity(userEntity);
     }
 
     public enum ValidationResult {
