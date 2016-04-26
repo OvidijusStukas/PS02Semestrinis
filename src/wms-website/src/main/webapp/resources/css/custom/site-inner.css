@@ -146,6 +146,10 @@ body {
     font-style: italic;
 }
 
+#management-container {
+    margin-top: 50px;
+}
+
 /* Footer configs */
 #footer-content {
     margin-top: 20px;
