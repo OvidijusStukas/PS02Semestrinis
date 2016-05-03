@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS contact_info (
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS picture (
-  id   INT NOT NULL AUTO_INCREMENT,
+  id   INT  NOT NULL AUTO_INCREMENT,
   data BLOB NOT NULL,
 
   CONSTRAINT `pk_picture_id` PRIMARY KEY (`id`)
@@ -36,14 +36,6 @@ CREATE TABLE IF NOT EXISTS account (
   CONSTRAINT `pk_account__id`      PRIMARY KEY (`id`),
   CONSTRAINT `uq_account__email`   UNIQUE (`email`),
   CONSTRAINT `fk_account__picture` FOREIGN KEY (`picture`) REFERENCES picture(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS account_contact_info (
-  account_id      INT NOT NULL,
-  contact_info_id INT NOT NULL,
-
-  CONSTRAINT `fk_account_contact_info__account_id`      FOREIGN KEY (`account_id`)      REFERENCES account(`id`),
-  CONSTRAINT `fk_account_contact_info__contact_info_id` FOREIGN KEY (`contact_info_id`) REFERENCES contact_info(`id`)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS asset (
