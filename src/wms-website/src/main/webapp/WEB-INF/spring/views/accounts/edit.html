@@ -5,14 +5,18 @@
 <th:block th:include="fragments/header :: top-menu"/>
 
 <div class="container">
-
-  <form id="account-edit" th:action="@{/accounts/edit}" th:object="${userEntity}" method="POST">
+  <h5>Editing account for <b th:text="${model.email}"></b></h5>
+  <hr/>
+  <form id="account-edit" th:action="@{/accounts/edit}" th:object="${model}" method="POST">
     <input th:name="id" th:value="*{id}" type="hidden">
-    <input th:name="password" th:value="*{password}" type="hidden">
-    <input th:name="role" th:value="*{role}" type="hidden">
-    <input th:name="email" th:field="*{email}" type="email" class="form-control" placeholder="Email Address" required autofocus/>
-    <input th:name="firstname" th:field="*{firstName}" type="text" class="form-control" placeholder="First Name" required/>
-    <input th:name="lastname" th:field="*{lastName}" type="text" class="form-control" placeholder="Last Name" required />
+    <div class="form-group has-feedback has-feedback-left">
+      <input class="form-control" th:field="*{firstName}" name="firstName" type="text" placeholder="First name"/>
+      <i class="glyphicon glyphicon-user form-control-feedback"></i>
+    </div>
+    <div class="form-group has-feedback has-feedback-left">
+      <input class="form-control" th:field="*{lastName}" name="lastName" type="text" placeholder="Last name"/>
+      <i class="glyphicon glyphicon-user form-control-feedback"></i>
+    </div>
     <button class="btn btn-lg btn-default btn-block" type="submit">Save</button>
   </form>
 </div>
