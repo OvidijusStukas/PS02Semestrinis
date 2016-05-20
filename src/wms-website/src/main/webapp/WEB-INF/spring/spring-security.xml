@@ -14,12 +14,16 @@
 
     <sec:form-login login-page="/accounts/login"
                 default-target-url="/dashboard/"
-                authentication-failure-url="/accounts/login-error"
+                authentication-failure-url="/accounts?loginError=true"
                 username-parameter="signin-email"
                 password-parameter="signin-password" />
 
-    <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
+    <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
     <sec:csrf/>
+
+    <sec:remember-me token-validity-seconds="1209600"
+                     remember-me-parameter="remember-me"
+                     data-source-ref="dataSource"/>
   </sec:http>
 
   <sec:authentication-manager>
@@ -27,13 +31,17 @@
       <sec:password-encoder ref="encoder" />
       <sec:jdbc-user-service
         data-source-ref="dataSource"
-        users-by-username-query="SELECT email, password, enabled FROM wms_dev.users WHERE email = ?"
-        authorities-by-username-query="SELECT email, user_role AS role FROM wms_dev.users WHERE email = ?" />
+        users-by-username-query="SELECT email, password, active FROM account WHERE email = ?"
+        authorities-by-username-query="SELECT email, role FROM account WHERE email = ?" />
     </sec:authentication-provider>
   </sec:authentication-manager>
 
   <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
     <constructor-arg name="strength" value="11" />
+  </bean>
+
+  <bean id="persistentTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+    <property name="dataSource" ref="dataSource"/>
   </bean>
 
 </beans>

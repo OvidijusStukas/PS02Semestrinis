@@ -18,11 +18,10 @@
   });
 
   $.validator.addMethod('passwordRequirement', function(value, element) {
-    return true;
-    var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     return this.optional(element)
       || regex.test(value)
-  }, 'Your password must be longer than 8 symbols and contain at least one number, uppercase letter and special symbol');
+  }, 'Password must be longer than 6 symbols and contain at least one number and uppercase letter');
 
   $.validator.addMethod("lettersOnly", function(value, element) {
     var regex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
@@ -37,7 +36,7 @@
       email: {
         required: true,
         email:true,
-        remote: 'registration/validate'
+        remote: 'registration/validation'
       },
       firstName: {
         required: true,

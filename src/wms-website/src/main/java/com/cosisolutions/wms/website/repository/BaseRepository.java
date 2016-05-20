@@ -8,10 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Ovidijus Stukas on 3/7/2016.
- * For CosISolutions
- */
 @Repository
 public class BaseRepository<T extends Serializable> implements IRepository<T> {
 

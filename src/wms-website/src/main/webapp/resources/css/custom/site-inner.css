@@ -98,6 +98,10 @@ body {
     margin: 5px;
 }
 
+.login-error {
+    color: red;
+}
+
 .registration-error {
     color: red;
     font-weight: bold;

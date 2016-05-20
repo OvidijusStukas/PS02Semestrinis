@@ -8,11 +8,11 @@
 <div id="main-signin-container" class="container-flex">
     <div id="signin-container" class="container text-center">
         <h2 id="signin-heading" class="form-signin-heading">Sign in</h2>
-        <hr>
-        <p th:if="${loginError}" id="signin-error">Wrong Email or Password</p>
-        <form th:action="@{/login}" method="POST" id="signin-form" class="form-signin">
+        <p id="signin-error" th:if="${#httpServletRequest.getParameter('loginError') == 'true'}" th:class="login-error">Wrong Email or Password</p>
+        <hr th:if="${#httpServletRequest.getParameter('loginError') == null}"/>
+        <form id="signin-form" class="form-signin" th:action="@{/login}" method="POST">
             <div class="form-group has-feedback has-feedback-left">
-                <input id="signin-email" name="signin-email" type="email" class="form-control input-element" placeholder="Email Address" required autofocus/>
+                <input id="signin-email" class="form-control input-element" name="signin-email" type="email" placeholder="Email address" required autofocus/>
                 <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
             </div>
             <div class="form-group has-feedback has-feedback-left">
@@ -22,13 +22,8 @@
             <hr>
             <div id="signin-option-container">
                 <label class="pull-left">
-                    <input type="checkbox" value="remember-me"/> Remember me
+                    <input name="remember-me" type="checkbox"/> Remember me
                 </label>
-                <!--<div id="signin-option-split" class="vertical-line col-md-1"></div>-->
-                <div id="signin-recover-link-container" class="pull-right">
-                    <a id="signin-recover-link" class="text-center" href="#">Recover password</a>
-                    <!-- TODO ADD RECOVERY -->
-                </div>
             </div>
             <button id="signin-button" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
             <div id="signin-register-link-container">
