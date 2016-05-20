@@ -33,3 +33,13 @@ CREATE TABLE IF NOT EXISTS asset (
   CONSTRAINT `pk__asset__id`         PRIMARY KEY (`id`),
   CONSTRAINT `fk__asset__account_id` FOREIGN KEY (`account_id`) REFERENCES account(`id`)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS item_group (
+  id       INT           NOT NULL AUTO_INCREMENT,
+  asset_id INT           NOT NULL,
+  name     NVARCHAR(255) NOT NULL,
+
+  CONSTRAINT `pk__item_group__id`       PRIMARY KEY (`id`),
+  CONSTRAINT `fk__item_group__asset_id` FOREIGN KEY (`asset_id`) REFERENCES asset(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
