@@ -60,3 +60,12 @@ CREATE TABLE IF NOT EXISTS item (
   CONSTRAINT `fk__item__asset_id` FOREIGN KEY (`asset_id`) REFERENCES asset(`id`),
   CONSTRAINT `fk__item__group_id` FOREIGN KEY (`group_id`) REFERENCES item_group(`id`)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS item_picture (
+  id       INT  NOT NULL AUTO_INCREMENT,
+  item_id  INT  NOT NULL,
+  data     TEXT NOT NULL,
+
+  CONSTRAINT `pk__item_picture__id`      PRIMARY KEY (`id`),
+  CONSTRAINT `fk__item_picture__item_id` FOREIGN KEY (`item_id`) REFERENCES item(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.cosisolutions.wms.website.entity.ItemPictureEntity" table="item_picture">
+
+    <id name="id" column="id" type="int">
+      <generator class="identity"/>
+    </id>
+
+    <property name="data" column="data" type="text"/>
+
+    <one-to-one name="item" foreign-key="item_id" class="com.cosisolutions.wms.website.entity.ItemEntity"/>
+  </class>
+</hibernate-mapping>
