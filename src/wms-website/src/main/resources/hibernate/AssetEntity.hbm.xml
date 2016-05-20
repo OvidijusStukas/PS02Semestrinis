@@ -11,7 +11,7 @@
     <property name="code"         column="code"         length="6"   type="string"/>
     <property name="name"         column="name"         length="255" type="string"/>
     <property name="address"      column="address"      length="512" type="string"/>
-    <property name="description"  column="description"               type="string"/>
+    <property name="description"  column="description"               type="text"/>
 
     <one-to-one name="account" foreign-key="account_id" class="com.cosisolutions.wms.website.entity.AccountEntity"/>
   </class>
