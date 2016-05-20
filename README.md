@@ -21,10 +21,10 @@ Sukurti sistema, kuri leistų vartotojui (šiuo atvėju įmonei) valdyti turimų
  * JUnit 4.12 - Testų rašimui.
 
 * Back End:
- * Spring framework 4.2.4 - Modulių injekcijai ir web sąrišiui.
+ * Spring framework 4.2.6 - Modulių injekcijai ir web sąrišiui.
  * Thymeleaf 3.0 - Web puslapių šablonų generavimui. 
  * Hibernate ORM 5.1 - Duomenų bazių ir objektų valdymui.
- * MySQL 5.7 - Duomenų bazė.
+ * MariaDB 10.1.14 - Duomenų bazė.
 
 * Front End:
  * Bootstrap 3.3 - Puslapio apipavidavinimui.
