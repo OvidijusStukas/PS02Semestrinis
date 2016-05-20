@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.cosisolutions.wms.website.entity.AccountEntity" table="account">
+
+    <id name="id" column="id" type="int">
+      <generator class="identity"/>
+    </id>
+
+    <property name="active"     column="active"                  type="boolean"/>
+    <property name="firstName"  column="first_name" length="100" type="string"/>
+    <property name="lastName"   column="last_name"  length="100" type="string"/>
+    <property name="email"      column="email"      length="200" type="string"/>
+    <property name="password"   column="password"   length="100" type="string"/>
+    <property name="role"       column="role"       length="100" type="string"/>
+  </class>
+</hibernate-mapping>
