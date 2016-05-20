@@ -69,3 +69,16 @@ CREATE TABLE IF NOT EXISTS item_picture (
   CONSTRAINT `pk__item_picture__id`      PRIMARY KEY (`id`),
   CONSTRAINT `fk__item_picture__item_id` FOREIGN KEY (`item_id`) REFERENCES item(`id`)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS asset_account_group (
+  asset_id   INT NOT NULL,
+  account_id INT NOT NULL,
+  role       NVARCHAR(100) NOT NULL,
+
+  UNIQUE INDEX `ix__asset_account_group` (`asset_id`, `account_id`),
+
+  CONSTRAINT `fk__asset_account_group__asset_id` FOREIGN KEY (`asset_id`) REFERENCES asset(`id`),
+  CONSTRAINT `fk__asset_account_group__account_id` FOREIGN KEY (`account_id`) REFERENCES account(`id`),
+  CONSTRAINT `ck__asset_account_group__role` CHECK (`role` IN ('ROLE_ASSET_ADMIN', 'ROLE_ASSET_MODERATOR', 'ROLE _ASSET_USER'))
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
