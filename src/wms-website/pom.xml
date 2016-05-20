@@ -23,13 +23,13 @@
     <log4j.logging.file>${project.build.directory}/${project.build.finalName}.log</log4j.logging.file>
 
     <!-- Dependency versions -->
-    <spring.security.version>4.0.4.RELEASE</spring.security.version>
-    <mysql.connector.version>5.1.38</mysql.connector.version>
+    <spring.security.version>4.1.0.RELEASE</spring.security.version>
+    <mysql.connector.version>5.1.39</mysql.connector.version>
     <maven.compiler.version>3.5.1</maven.compiler.version>
-    <thymeleaf.version>3.0.0.BETA03</thymeleaf.version>
+    <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
     <hibernate.version>5.1.0.Final</hibernate.version>
     <apache.dbcp2.version>2.1.1</apache.dbcp2.version>
-    <spring.version>4.2.5.RELEASE</spring.version>
+    <spring.version>4.2.6.RELEASE</spring.version>
     <servlet.version>4.0.0-b01</servlet.version>
     <weaver.version>1.8.9</weaver.version>
     <slf4j.version>1.7.21</slf4j.version>
