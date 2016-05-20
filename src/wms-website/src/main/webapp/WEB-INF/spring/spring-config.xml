@@ -48,6 +48,7 @@
     </property>
     <property name="mappingResources">
       <list>
+        <value>hibernate/ItemEntity.hbm.xml</value>
         <value>hibernate/AssetEntity.hbm.xml</value>
         <value>hibernate/AccountEntity.hbm.xml</value>
         <value>hibernate/ItemGroupEntity.hbm.xml</value>
