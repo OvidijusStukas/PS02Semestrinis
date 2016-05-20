@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.cosisolutions.wms.website.entity.AssetEntity" table="asset">
+
+    <id name="id" column="id" type="int">
+      <generator class="identity"/>
+    </id>
+
+    <property name="code"         column="code"         length="6"   type="string"/>
+    <property name="name"         column="name"         length="255" type="string"/>
+    <property name="address"      column="address"      length="512" type="string"/>
+    <property name="description"  column="description"               type="string"/>
+
+    <one-to-one name="account" foreign-key="account" class="com.cosisolutions.wms.website.entity.AccountEntity"/>
+  </class>
+</hibernate-mapping>

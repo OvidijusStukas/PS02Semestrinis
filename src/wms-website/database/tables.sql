@@ -21,3 +21,15 @@ CREATE TABLE IF NOT EXISTS persistent_logins (
 
   CONSTRAINT `pk__persistent_logins__series` PRIMARY KEY (`series`)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS asset (
+  id          INT           NOT NULL AUTO_INCREMENT,
+  account_id  INT           NOT NULL,
+  name        NVARCHAR(255) NOT NULL,
+  code        NVARCHAR(6)   NOT NULL,
+  description TEXT          NULL,
+  address     NVARCHAR(512) NOT NULL,
+
+  CONSTRAINT `pk__asset__id`         PRIMARY KEY (`id`),
+  CONSTRAINT `fk__asset__account_id` FOREIGN KEY (`account_id`) REFERENCES account(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;

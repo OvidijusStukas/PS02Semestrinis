@@ -1,36 +1,60 @@
 package com.cosisolutions.wms.website.models;
 
-import com.cosisolutions.wms.website.entity.AssetEntity;
-import com.cosisolutions.wms.website.repository.BaseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-/**
- * Created by CosISolutions on 2016-04-26.
- */
 public class AssetModel {
 
-    @Autowired
-    private BaseRepository<AssetEntity> AssetRepository;
+    private int id;
+    private String code;
+    private String name;
+    private String address;
+    private String description;
+    private AccountModel account;
 
-    private List<AssetEntity> assetList = null;
-
-    public AssetModel() {
-
-        assetList = new ArrayList<>();
-        fillAssetList();
+    public int getId() {
+        return id;
     }
 
-    public void fillAssetList() {
-        assetList = AssetRepository.getEntities(AssetEntity.class);
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public List<AssetEntity> getList() {
-        return assetList;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public AccountModel getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountModel account) {
+        this.account = account;
     }
 
 }
