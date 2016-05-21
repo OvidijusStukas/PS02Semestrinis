@@ -10,6 +10,6 @@
 
     <property name="name" column="name" length="255" type="string"/>
 
-    <one-to-one name="asset" foreign-key="asset_id" class="com.cosisolutions.wms.website.entity.AssetEntity"/>
+    <many-to-one name="asset" column="asset_id" class="com.cosisolutions.wms.website.entity.AssetEntity"/>
   </class>
 </hibernate-mapping>
