@@ -19,7 +19,7 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
     model.setId(entity.getId());
     model.setData(entity.getData());
 
-    if(model.getItem() == null)
+    if(model.getItem() == null && entity.getItem() != null)
       model.setItem(new ItemModel());
     itemMapper.toModel(model.getItem(), entity.getItem());
   }
@@ -33,7 +33,7 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
     if(model.getId() > 0)
       entity.setId(model.getId());
 
-    if(entity.getItem() == null)
+    if(entity.getItem() == null && model.getItem() != null)
       entity.setItem(new ItemEntity());
     itemMapper.toEntity(entity.getItem(), model.getItem());
   }

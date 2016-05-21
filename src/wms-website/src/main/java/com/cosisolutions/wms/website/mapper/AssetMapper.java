@@ -22,25 +22,25 @@ public class AssetMapper implements IMapper<AssetEntity, AssetModel> {
     model.setAddress(entity.getAddress());
     model.setDescription(entity.getDescription());
 
-    if(model.getAccount() == null)
+    if(model.getAccount() == null && entity.getAccount() != null)
       model.setAccount(new AccountModel());
     accountMapper.toModel(model.getAccount(), entity.getAccount());
   }
 
   @Override
-  public void toEntity(AssetEntity entity, AssetModel assetModel) {
-    if(entity == null || assetModel == null) return;
+  public void toEntity(AssetEntity entity, AssetModel model) {
+    if(entity == null || model == null) return;
 
-    entity.setCode(assetModel.getCode());
-    entity.setName(assetModel.getName());
-    entity.setAddress(assetModel.getAddress());
-    entity.setDescription(assetModel.getDescription());
+    entity.setCode(model.getCode());
+    entity.setName(model.getName());
+    entity.setAddress(model.getAddress());
+    entity.setDescription(model.getDescription());
 
-    if(assetModel.getId() > 0)
-      entity.setId(assetModel.getId());
+    if(model.getId() > 0)
+      entity.setId(model.getId());
 
-    if(entity.getAccount() == null)
+    if(entity.getAccount() == null && model.getAccount() != null)
       entity.setAccount(new AccountEntity());
-    accountMapper.toEntity(entity.getAccount(), assetModel.getAccount());
+    accountMapper.toEntity(entity.getAccount(), model.getAccount());
   }
 }

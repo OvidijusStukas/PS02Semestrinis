@@ -19,7 +19,7 @@ public class ItemGroupMapper implements IMapper<ItemGroupEntity, ItemGroupModel>
     model.setId(entity.getId());
     model.setName(entity.getName());
 
-    if(model.getAsset() == null)
+    if(model.getAsset() == null && entity.getAsset() != null)
       model.setAsset(new AssetModel());
     assetMapper.toModel(model.getAsset(), entity.getAsset());
   }
@@ -33,7 +33,7 @@ public class ItemGroupMapper implements IMapper<ItemGroupEntity, ItemGroupModel>
     if(model.getId() > 0)
       entity.setId(model.getId());
 
-    if(entity.getAsset() == null)
+    if(entity.getAsset() == null && model.getAsset() != null)
       entity.setAsset(new AssetEntity());
     assetMapper.toEntity(entity.getAsset(), model.getAsset());
   }
