@@ -10,7 +10,7 @@ import java.util.List;
  * For CosISolutions
  */
 public interface IRepository<T extends Serializable> {
-    void insertEntity(T entity) throws HibernateException;
+    Integer insertEntity(T entity) throws HibernateException;
 
     void updateEntity(T entity) throws HibernateException;
 

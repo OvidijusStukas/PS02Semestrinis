@@ -15,8 +15,8 @@ public class BaseRepository<T extends Serializable> implements IRepository<T> {
     protected HibernateTemplate hibernateTemplate;
 
     @Override
-    public void insertEntity(T entity) throws HibernateException {
-        hibernateTemplate.save(entity);
+    public Integer insertEntity(T entity) throws HibernateException {
+        return (Integer) hibernateTemplate.save(entity);
     }
 
     @Override

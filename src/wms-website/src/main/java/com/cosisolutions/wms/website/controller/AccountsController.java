@@ -1,6 +1,7 @@
 package com.cosisolutions.wms.website.controller;
 
 import com.cosisolutions.wms.website.entity.AccountEntity;
+import com.cosisolutions.wms.website.factory.AssetFactory;
 import com.cosisolutions.wms.website.mapper.AccountMapper;
 import com.cosisolutions.wms.website.models.AccountModel;
 import com.cosisolutions.wms.website.repository.AccountRepository;
@@ -24,7 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/accounts")
 public class AccountsController {
-
+    @Autowired
+    private AssetFactory assetFactory;
     @Autowired
     private AccountMapper accountMapper;
     @Autowired
@@ -55,6 +57,7 @@ public class AccountsController {
 
         ModelAndView modelAndView = new ModelAndView("accounts/edit");
         modelAndView.addObject("model", model);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
 
         return modelAndView;
     }
@@ -65,8 +68,10 @@ public class AccountsController {
                              BindingResult result, SessionStatus status) {
         accountEditValidator.validate(model, result);
 
+
         if(result.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("accounts/edit");
+            modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
             modelAndView.addObject("model", model);
             return modelAndView;
         }
@@ -79,7 +84,9 @@ public class AccountsController {
         }
 
         status.setComplete();
-        return new ModelAndView("home/dashboard");
+        ModelAndView modelAndView = new ModelAndView("home/dashboard");
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+        return modelAndView;
     }
 
     @PreAuthorize("isAnonymous()")

@@ -2,6 +2,7 @@ package com.cosisolutions.wms.website.controller;
 
 import com.cosisolutions.wms.website.entity.AccountEntity;
 import com.cosisolutions.wms.website.entity.AssetEntity;
+import com.cosisolutions.wms.website.factory.AssetFactory;
 import com.cosisolutions.wms.website.mapper.AssetMapper;
 import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.repository.AccountRepository;
@@ -27,6 +28,8 @@ public class AssetsController {
     @Autowired
     private AssetMapper assetMapper;
     @Autowired
+    private AssetFactory assetFactory;
+    @Autowired
     private AccountRepository accountRepository;
     @Autowired
     private AssetModelValidator assetModelValidator;
@@ -38,6 +41,7 @@ public class AssetsController {
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("assets/add");
         modelAndView.addObject("model", new AssetModel());
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
         return modelAndView;
     }
 
@@ -49,6 +53,7 @@ public class AssetsController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("model", model);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
 
         if(result.hasErrors()) {
             return modelAndView;
@@ -58,18 +63,19 @@ public class AssetsController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AccountEntity accountEntity = accountRepository.findUserByEmail(auth.getName());
 
+        Integer id;
         try {
             AssetEntity entity = new AssetEntity();
             assetMapper.toEntity(entity, model);
             entity.setAccount(accountEntity);
-            assetRepository.insertEntity(entity);
+            id = assetRepository.insertEntity(entity);
         } catch (HibernateException e) {
             return modelAndView;
         }
 
         status.setComplete();
-        // TODO change to items/{asset_id}
-        return new ModelAndView("home/dashboard");
+        String route = String.format("redirect:/items?id=%d", id);
+        return new ModelAndView(route);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -81,6 +87,7 @@ public class AssetsController {
 
         ModelAndView modelAndView = new ModelAndView("assets/edit");
         modelAndView.addObject("model", model);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
         return modelAndView;
     }
 
@@ -92,6 +99,7 @@ public class AssetsController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("model", model);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
 
         if(result.hasErrors()) {
             return  modelAndView;
@@ -111,8 +119,8 @@ public class AssetsController {
         }
 
         status.setComplete();
-        // TODO change to items/{asset_id}
-        return new ModelAndView("home/dashboard");
+        String route = String.format("redirect:/items?id=%d", model.getId());
+        return new ModelAndView(route);
     }
 
 }
