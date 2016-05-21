@@ -282,3 +282,13 @@ body {
 #thumbnail-container{
     margin: 30px;
 }
+
+#item-add-container {
+    position: relative;
+    top: 2%;
+    border-radius: 10px;
+    min-height: 300px;
+    max-width: 400px;
+    border: solid rgba(8, 8, 8, 0.3);
+    background-color: rgba(255, 255, 255, 0.7);
+}

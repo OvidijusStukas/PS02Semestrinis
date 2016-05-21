@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/custom/site-inner.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/fileinput.css}" />
 </head>
 <body>
 
@@ -29,12 +30,16 @@
           <li class="active">
             <a th:href="@{/}"><span class="glyphicon glyphicon-home"></span> Home</a>
           </li>
-          <li sec:authorize="isAuthenticated()" class="dropdown">
-            <a th:href="@{/assets}" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Assets</a>
-            <ul class="dropdown-menu">
-              <li th:each="asset : ${assets}"><a th:href="@{/items(id=${asset.id})}" th:class="text-center" th:text="${asset.code}"></a></li>
-              <li><a th:href="@{/assets/add}" class="text-center"><span class="glyphicon glyphicon-plus-sign"></span> Add new</a></li>
-            </ul>
+          <li sec:authorize="isAuthenticated()">
+            <li class="dropdown">
+              <a th:href="@{/assets}" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Assets</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" class="text-center">Asset 1</a></li>
+                  <li><a href="#" class="text-center">Asset 2</a></li>
+                  <li><a href="#" class="text-center">Asset 3</a></li>
+                  <li><a th:href="@{/assets/add}" class="text-center"><span class="glyphicon glyphicon-plus-sign"></span> Add new</a></li>
+                </ul>
+            </li>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -63,6 +68,8 @@
   <script th:src="@{/js/jquery.validate.js}" type="application/javascript"></script>
   <script th:src="@{/js/bootstrap.js}" type="application/javascript"></script>
   <script th:src="@{/js/custom/home.js}" type="application/javascript"></script>
+  <script th:src="@{/js/fileinput.js}" type="application/javascript"></script>
+  <script th:src="@{/js/canvas-to-blob.js}" type="application/javascript"></script>
 </th:block>
 </body>
 </html>

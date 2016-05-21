@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
 <body>
+<th:block th:include="fragments/header :: top-menu"/>
 
+<div id="add-asset-container" class="container-flex">
+    <div id="item-add-container" class="container text-center">
+        <h2 id="aset-add-heading" class="text-center">Add new item</h2>
+        <hr/>
+        <form id="asset-form" method="POST">
+            <div class="form-group has-feedback has-feedback-left">
+                <input id="item-name" class="form-control input-element" name="name" type="text" placeholder="Item name" required/>
+                <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
+            </div>
+            <div class="form-group has-feedback has-feedback-left">
+                <input id="item-code" class="form-control input-element" name="code" type="text" placeholder="Item code" required/>
+                <i class="glyphicon glyphicon-barcode form-control-feedback"></i>
+            </div>
+            <div class="form-group has-feedback has-feedback-left">
+                <textarea class="form-control" rows="5" id="asset-description" placeholder="Description"></textarea>
+            </div>
+            <div class="form-group has-feedback has-feedback-left">
+                <input id="item-count" class="form-control input-element" name="count" type="number" placeholder="Item count" required/>
+                <i class="glyphicon glyphicon-stats form-control-feedback"></i>
+            </div>
+            <input id="picture" type="file" class="file">
+            <hr/>
+            <button class="btn btn-lg btn-default btn-block" type="submit">Add item</button>
+        </form>
+    </div>
+</div>
+
+<th:block th:include="fragments/footer :: footer"/>
+<th:block th:include="fragments/header :: scripts"/>
 </body>
 </html>
