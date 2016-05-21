@@ -11,24 +11,24 @@ public class ItemGroupMapper implements IMapper<ItemGroupEntity, ItemGroupModel>
   private AssetMapper assetMapper;
 
   @Override
-  public void toModel(ItemGroupModel itemGroupModel, ItemGroupEntity itemGroupEntity) {
-    if(itemGroupEntity == null) return;
+  public void toModel(ItemGroupModel model, ItemGroupEntity entity) {
+    if(model == null || entity == null) return;
 
-    itemGroupModel.setId(itemGroupEntity.getId());
-    itemGroupModel.setName(itemGroupEntity.getName());
+    model.setId(entity.getId());
+    model.setName(entity.getName());
 
-    assetMapper.toModel(itemGroupModel.getAsset(), itemGroupEntity.getAsset());
+    assetMapper.toModel(model.getAsset(), entity.getAsset());
   }
 
   @Override
-  public void toEntity(ItemGroupEntity itemGroupEntity, ItemGroupModel itemGroupModel) {
-    if(itemGroupModel == null) return;
+  public void toEntity(ItemGroupEntity entity, ItemGroupModel model) {
+    if(entity == null || model == null) return;
 
-    itemGroupEntity.setName(itemGroupModel.getName());
+    entity.setName(model.getName());
 
-    if(itemGroupModel.getId() > 0)
-      itemGroupEntity.setId(itemGroupModel.getId());
+    if(model.getId() > 0)
+      entity.setId(model.getId());
 
-    assetMapper.toEntity(itemGroupEntity.getAsset(), itemGroupModel.getAsset());
+    assetMapper.toEntity(entity.getAsset(), model.getAsset());
   }
 }

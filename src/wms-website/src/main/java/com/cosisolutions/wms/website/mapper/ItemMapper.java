@@ -13,32 +13,32 @@ public class ItemMapper implements IMapper<ItemEntity, ItemModel> {
   private ItemGroupMapper itemGroupMapper;
 
   @Override
-  public void toModel(ItemModel itemModel, ItemEntity itemEntity) {
-    if(itemEntity == null) return;
+  public void toModel(ItemModel model, ItemEntity entity) {
+    if(model == null || entity == null) return;
 
-    itemModel.setId(itemEntity.getId());
-    itemModel.setCode(itemEntity.getCode());
-    itemModel.setName(itemEntity.getName());
-    itemModel.setCount(itemEntity.getCount());
-    itemModel.setDescription(itemEntity.getDescription());
+    model.setId(entity.getId());
+    model.setCode(entity.getCode());
+    model.setName(entity.getName());
+    model.setCount(entity.getCount());
+    model.setDescription(entity.getDescription());
 
-    assetMapper.toModel(itemModel.getAsset(), itemEntity.getAsset());
-    itemGroupMapper.toModel(itemModel.getGroup(), itemEntity.getGroup());
+    assetMapper.toModel(model.getAsset(), entity.getAsset());
+    itemGroupMapper.toModel(model.getGroup(), entity.getGroup());
   }
 
   @Override
-  public void toEntity(ItemEntity itemEntity, ItemModel itemModel) {
-    if(itemModel == null) return;
+  public void toEntity(ItemEntity entity, ItemModel model) {
+    if(entity == null || model == null) return;
 
-    itemEntity.setCode(itemModel.getCode());
-    itemEntity.setName(itemModel.getName());
-    itemEntity.setCount(itemModel.getCount());
-    itemEntity.setDescription(itemModel.getDescription());
+    entity.setCode(model.getCode());
+    entity.setName(model.getName());
+    entity.setCount(model.getCount());
+    entity.setDescription(model.getDescription());
 
-    if(itemModel.getId() > 0)
-      itemEntity.setId(itemModel.getId());
+    if(model.getId() > 0)
+      entity.setId(model.getId());
 
-    assetMapper.toEntity(itemEntity.getAsset(), itemModel.getAsset());
-    itemGroupMapper.toEntity(itemEntity.getGroup(), itemModel.getGroup());
+    assetMapper.toEntity(entity.getAsset(), model.getAsset());
+    itemGroupMapper.toEntity(entity.getGroup(), model.getGroup());
   }
 }

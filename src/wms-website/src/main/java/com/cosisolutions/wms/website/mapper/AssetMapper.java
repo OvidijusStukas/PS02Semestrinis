@@ -11,30 +11,30 @@ public class AssetMapper implements IMapper<AssetEntity, AssetModel> {
   private AccountMapper accountMapper;
 
   @Override
-  public void toModel(AssetModel assetModel, AssetEntity assetEntity) {
-    if(assetEntity == null) return;
+  public void toModel(AssetModel model, AssetEntity entity) {
+    if(model == null || entity == null) return;
 
-    assetModel.setId(assetEntity.getId());
-    assetModel.setCode(assetEntity.getCode());
-    assetModel.setName(assetEntity.getName());
-    assetModel.setAddress(assetEntity.getAddress());
-    assetModel.setDescription(assetEntity.getDescription());
+    model.setId(entity.getId());
+    model.setCode(entity.getCode());
+    model.setName(entity.getName());
+    model.setAddress(entity.getAddress());
+    model.setDescription(entity.getDescription());
 
-    accountMapper.toModel(assetModel.getAccount(), assetEntity.getAccount());
+    accountMapper.toModel(model.getAccount(), entity.getAccount());
   }
 
   @Override
-  public void toEntity(AssetEntity assetEntity, AssetModel assetModel) {
-    if(assetModel == null) return;
+  public void toEntity(AssetEntity entity, AssetModel assetModel) {
+    if(entity == null || assetModel == null) return;
 
-    assetEntity.setCode(assetModel.getCode());
-    assetEntity.setName(assetModel.getName());
-    assetEntity.setAddress(assetModel.getAddress());
-    assetEntity.setDescription(assetModel.getDescription());
+    entity.setCode(assetModel.getCode());
+    entity.setName(assetModel.getName());
+    entity.setAddress(assetModel.getAddress());
+    entity.setDescription(assetModel.getDescription());
 
     if(assetModel.getId() > 0)
-      assetEntity.setId(assetModel.getId());
+      entity.setId(assetModel.getId());
 
-    accountMapper.toEntity(assetEntity.getAccount(), assetModel.getAccount());
+    accountMapper.toEntity(entity.getAccount(), assetModel.getAccount());
   }
 }

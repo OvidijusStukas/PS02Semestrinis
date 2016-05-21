@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountMapper implements IMapper<AccountEntity, AccountModel> {
   @Override
-  public void toModel(AccountModel model, AccountEntity accountEntity) {
-    if(accountEntity == null) return;
+  public void toModel(AccountModel model, AccountEntity entity) {
+    if(model == null || entity == null) return;
 
-    model.setId(accountEntity.getId());
-    model.setEmail(accountEntity.getEmail());
-    model.setLastName(accountEntity.getLastName());
-    model.setPassword(accountEntity.getPassword());
-    model.setFirstName(accountEntity.getFirstName());
-    model.setPasswordRepeat(accountEntity.getPassword());
+    model.setId(entity.getId());
+    model.setEmail(entity.getEmail());
+    model.setLastName(entity.getLastName());
+    model.setPassword(entity.getPassword());
+    model.setFirstName(entity.getFirstName());
+    model.setPasswordRepeat(entity.getPassword());
   }
 
   @Override
   public void toEntity(AccountEntity entity, AccountModel accountModel) {
-    if(accountModel == null) return;
+    if(entity == null || accountModel == null) return;
 
     entity.setEmail(accountModel.getEmail());
     entity.setPassword(accountModel.getPassword());

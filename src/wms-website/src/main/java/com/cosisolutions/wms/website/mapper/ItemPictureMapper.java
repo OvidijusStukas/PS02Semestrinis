@@ -11,24 +11,24 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
   private ItemMapper itemMapper;
 
   @Override
-  public void toModel(ItemPictureModel itemPictureModel, ItemPictureEntity itemPictureEntity) {
-    if(itemPictureEntity == null) return;
+  public void toModel(ItemPictureModel model, ItemPictureEntity entity) {
+    if(model == null || entity == null) return;
 
-    itemPictureModel.setId(itemPictureEntity.getId());
-    itemPictureModel.setData(itemPictureEntity.getData());
+    model.setId(entity.getId());
+    model.setData(entity.getData());
 
-    itemMapper.toModel(itemPictureModel.getItem(), itemPictureEntity.getItem());
+    itemMapper.toModel(model.getItem(), entity.getItem());
   }
 
   @Override
-  public void toEntity(ItemPictureEntity itemPictureEntity, ItemPictureModel itemPictureModel) {
-    if(itemPictureModel == null) return;
+  public void toEntity(ItemPictureEntity entity, ItemPictureModel model) {
+    if(entity == null || model == null) return;
 
-    itemPictureEntity.setData(itemPictureModel.getData());
+    entity.setData(model.getData());
 
-    if(itemPictureModel.getId() > 0)
-      itemPictureEntity.setId(itemPictureModel.getId());
+    if(model.getId() > 0)
+      entity.setId(model.getId());
 
-    itemMapper.toEntity(itemPictureEntity.getItem(), itemPictureModel.getItem());
+    itemMapper.toEntity(entity.getItem(), model.getItem());
   }
 }
