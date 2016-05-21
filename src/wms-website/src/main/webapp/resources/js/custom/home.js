@@ -19,3 +19,17 @@ function logout() {
     form.submit();
 }
 
+// Register custom validation methods
+(function ($) {
+  $.validator.addMethod('passwordRequirement', function(value, element) {
+    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    return this.optional(element)
+      || regex.test(value)
+  }, 'Password must be longer than 6 symbols and contain at least one number and uppercase letter');
+
+  $.validator.addMethod("lettersOnly", function(value, element) {
+    var regex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
+    return this.optional(element)
+      || regex.test(value)
+  }, "Letters and spaces only please");
+}(jQuery));

@@ -5,6 +5,7 @@ import com.cosisolutions.wms.website.mapper.AccountMapper;
 import com.cosisolutions.wms.website.models.AccountModel;
 import com.cosisolutions.wms.website.repository.AccountRepository;
 import com.cosisolutions.wms.website.repository.BaseRepository;
+import com.cosisolutions.wms.website.validator.AccountEditValidator;
 import com.cosisolutions.wms.website.validator.AccountModelValidator;
 import com.cosisolutions.wms.website.validator.RegistrationValidator;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,8 @@ public class AccountsController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
+    private AccountEditValidator accountEditValidator;
+    @Autowired
     private AccountModelValidator accountModelValidator;
     @Autowired
     private RegistrationValidator registrationValidator;
@@ -55,13 +58,24 @@ public class AccountsController {
     }
 
     @RequestMapping(value = {"edit"}, method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("model") AccountModel model) {
+    public ModelAndView edit(@ModelAttribute("model") AccountModel model,
+                             BindingResult result, SessionStatus status) {
+        accountEditValidator.validate(model, result);
+
+        if(result.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("accounts/edit");
+            modelAndView.addObject("model", model);
+            return modelAndView;
+        }
+
         AccountEntity entity = accountRepository.getEntity(AccountEntity.class, model.getId());
         if(entity != null) {
             entity.setFirstName(model.getFirstName());
             entity.setLastName(model.getLastName());
             accountRepository.updateEntity(entity);
         }
+
+        status.setComplete();
         return new ModelAndView("home/dashboard");
     }
 

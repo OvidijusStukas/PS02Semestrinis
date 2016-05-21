@@ -13,22 +13,22 @@
       <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
         <input class="form-control" th:field="*{email}" name="email" type="email" placeholder="Email address"/>
         <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="registration-error"></span>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="validation-error"></span>
       </div>
       <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('firstName')}? 'has-error'">
         <input class="form-control" th:field="*{firstName}" name="firstName" type="text" placeholder="First name"/>
         <i class="glyphicon glyphicon-user form-control-feedback"></i>
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:class="registration-error"></span>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:class="validation-error"></span>
       </div>
       <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('lastName')}? 'has-error'">
         <input class="form-control" th:field="*{lastName}" name="lastName" type="text" placeholder="Last name"/>
         <i class="glyphicon glyphicon-user form-control-feedback"></i>
-        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:class="registration-error"></span>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:class="validation-error"></span>
       </div>
       <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
         <input id="registration-password" class="form-control" th:field="*{password}" name="password" type="password" placeholder="Password"/>
         <i class="glyphicon glyphicon-lock form-control-feedback"></i>
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="registration-error"></span>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="validation-error"></span>
       </div>
       <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
         <input class="form-control" th:field="*{passwordRepeat}" name="passwordRepeat" type="password" placeholder="Password"/>

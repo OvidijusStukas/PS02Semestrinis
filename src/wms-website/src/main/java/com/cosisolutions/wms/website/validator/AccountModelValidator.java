@@ -10,7 +10,7 @@ import org.springframework.validation.Validator;
 @Component
 public class AccountModelValidator implements Validator {
   private static final String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$";
-  private static final String ONLY_LETTERS = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$";
+  protected static final String ONLY_LETTERS = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$";
 
   @Override
   public boolean supports(Class<?> clazz) {
@@ -26,10 +26,10 @@ public class AccountModelValidator implements Validator {
     ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "error.lastName", "Last name is required.");
     ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "error.firstName", "First name is required.");
 
-    if(!model.getFirstName().matches(ONLY_LETTERS)) {
+    if(!model.getFirstName().matches(ONLY_LETTERS) && !errors.hasFieldErrors("firstName")) {
       errors.rejectValue("firstName", "error.firstName", "First name can only contain letters and spaces");
     }
-    if(!model.getLastName().matches(ONLY_LETTERS)) {
+    if(!model.getLastName().matches(ONLY_LETTERS) && !errors.hasFieldErrors("lastName")) {
       errors.rejectValue("lastName", "error.lastName", "Last name can only contain letters and spaces.");
     }
 
