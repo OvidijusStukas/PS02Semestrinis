@@ -1,6 +1,8 @@
 package com.cosisolutions.wms.website.mapper;
 
+import com.cosisolutions.wms.website.entity.ItemEntity;
 import com.cosisolutions.wms.website.entity.ItemPictureEntity;
+import com.cosisolutions.wms.website.models.ItemModel;
 import com.cosisolutions.wms.website.models.ItemPictureModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
     model.setId(entity.getId());
     model.setData(entity.getData());
 
+    if(model.getItem() == null)
+      model.setItem(new ItemModel());
     itemMapper.toModel(model.getItem(), entity.getItem());
   }
 
@@ -29,6 +33,8 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
     if(model.getId() > 0)
       entity.setId(model.getId());
 
+    if(entity.getItem() == null)
+      entity.setItem(new ItemEntity());
     itemMapper.toEntity(entity.getItem(), model.getItem());
   }
 }

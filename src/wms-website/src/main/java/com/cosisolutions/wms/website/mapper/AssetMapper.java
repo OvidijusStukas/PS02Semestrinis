@@ -1,6 +1,8 @@
 package com.cosisolutions.wms.website.mapper;
 
+import com.cosisolutions.wms.website.entity.AccountEntity;
 import com.cosisolutions.wms.website.entity.AssetEntity;
+import com.cosisolutions.wms.website.models.AccountModel;
 import com.cosisolutions.wms.website.models.AssetModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,8 @@ public class AssetMapper implements IMapper<AssetEntity, AssetModel> {
     model.setAddress(entity.getAddress());
     model.setDescription(entity.getDescription());
 
+    if(model.getAccount() == null)
+      model.setAccount(new AccountModel());
     accountMapper.toModel(model.getAccount(), entity.getAccount());
   }
 
@@ -35,6 +39,8 @@ public class AssetMapper implements IMapper<AssetEntity, AssetModel> {
     if(assetModel.getId() > 0)
       entity.setId(assetModel.getId());
 
+    if(entity.getAccount() == null)
+      entity.setAccount(new AccountEntity());
     accountMapper.toEntity(entity.getAccount(), assetModel.getAccount());
   }
 }

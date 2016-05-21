@@ -1,6 +1,10 @@
 package com.cosisolutions.wms.website.mapper;
 
+import com.cosisolutions.wms.website.entity.AssetEntity;
 import com.cosisolutions.wms.website.entity.ItemEntity;
+import com.cosisolutions.wms.website.entity.ItemGroupEntity;
+import com.cosisolutions.wms.website.models.AssetModel;
+import com.cosisolutions.wms.website.models.ItemGroupModel;
 import com.cosisolutions.wms.website.models.ItemModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +26,11 @@ public class ItemMapper implements IMapper<ItemEntity, ItemModel> {
     model.setCount(entity.getCount());
     model.setDescription(entity.getDescription());
 
+    if(model.getAsset() == null)
+      model.setAsset(new AssetModel());
     assetMapper.toModel(model.getAsset(), entity.getAsset());
+    if(model.getGroup() == null)
+      model.setGroup(new ItemGroupModel());
     itemGroupMapper.toModel(model.getGroup(), entity.getGroup());
   }
 
@@ -38,7 +46,11 @@ public class ItemMapper implements IMapper<ItemEntity, ItemModel> {
     if(model.getId() > 0)
       entity.setId(model.getId());
 
+    if(entity.getAsset() == null)
+      entity.setAsset(new AssetEntity());
     assetMapper.toEntity(entity.getAsset(), model.getAsset());
+    if(entity.getGroup() == null)
+      entity.setGroup(new ItemGroupEntity());
     itemGroupMapper.toEntity(entity.getGroup(), model.getGroup());
   }
 }
