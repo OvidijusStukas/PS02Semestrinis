@@ -4,7 +4,6 @@ import com.cosisolutions.wms.website.entity.AccountEntity;
 import com.cosisolutions.wms.website.mapper.AccountMapper;
 import com.cosisolutions.wms.website.models.AccountModel;
 import com.cosisolutions.wms.website.repository.AccountRepository;
-import com.cosisolutions.wms.website.repository.BaseRepository;
 import com.cosisolutions.wms.website.validator.AccountEditValidator;
 import com.cosisolutions.wms.website.validator.AccountModelValidator;
 import com.cosisolutions.wms.website.validator.RegistrationValidator;
@@ -49,7 +48,7 @@ public class AccountsController {
         AccountEntity entity = accountRepository.findUserByEmail(auth.getName());
 
         AccountModel model = new AccountModel();
-        accountMapper.ToModel(model, entity);
+        accountMapper.toModel(model, entity);
 
         ModelAndView modelAndView = new ModelAndView("accounts/edit");
         modelAndView.addObject("model", model);
@@ -102,7 +101,7 @@ public class AccountsController {
 
         try {
             AccountEntity accountEntity = new AccountEntity();
-            accountMapper.ToEntity(accountEntity, accountModel);
+            accountMapper.toEntity(accountEntity, accountModel);
             accountEntity.setActive(true);
             accountEntity.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
             accountRepository.insertEntity(accountEntity);

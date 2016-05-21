@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountMapper implements IMapper<AccountEntity, AccountModel> {
   @Override
-  public void ToModel(AccountModel model, AccountEntity accountEntity) {
+  public void toModel(AccountModel model, AccountEntity accountEntity) {
     model.setId(accountEntity.getId());
     model.setEmail(accountEntity.getEmail());
     model.setLastName(accountEntity.getLastName());
@@ -17,7 +17,7 @@ public class AccountMapper implements IMapper<AccountEntity, AccountModel> {
   }
 
   @Override
-  public void ToEntity(AccountEntity entity, AccountModel accountModel) {
+  public void toEntity(AccountEntity entity, AccountModel accountModel) {
     entity.setEmail(accountModel.getEmail());
     entity.setPassword(accountModel.getPassword());
     entity.setFirstName(accountModel.getFirstName());
