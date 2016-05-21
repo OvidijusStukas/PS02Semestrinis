@@ -309,3 +309,21 @@ body {
     color: #fff;
     font-size: 17px;
 }
+
+#main-acc-edit-container {
+    min-height: 100%;
+    width: 100%;
+    background-size: cover;
+    background: url('/images/accounts-bg.jpg') no-repeat;
+}
+
+#edit-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+    border-radius: 10px;
+    min-height: 250px;
+    max-width: 400px;
+    border: solid rgba(8, 8, 8, 0.3);
+    background-color: rgba(255, 255, 255, 0.7);
+}
