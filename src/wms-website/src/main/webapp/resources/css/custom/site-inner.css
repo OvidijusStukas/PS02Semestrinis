@@ -296,3 +296,16 @@ body {
 .slite-left{
     margin-left: 10px;
 }
+
+#dashboard-control {
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 30px;
+}
+
+#add-item-link {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 17px;
+}
