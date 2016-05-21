@@ -19,8 +19,23 @@ function logout() {
     form.submit();
 }
 
-// Register custom validation methods
+// Setup jQuery validation
 (function ($) {
+  $.validator.setDefaults({
+    highlight: function(element) {
+      $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+      $(element).closest('.form-group').removeClass('has-error');
+    },
+    errorPlacement: function(error, element) {
+      $(element).parent().append(error);
+    },
+    success: function(label) {
+      $(label).parent().find('input').addClass('validation-valid');
+    }
+  });
+
   $.validator.addMethod('passwordRequirement', function(value, element) {
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     return this.optional(element)

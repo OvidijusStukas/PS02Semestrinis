@@ -2,17 +2,20 @@
 (function($) {
   'use strict';
 
-  $('#account-edit').validate({
+  $('#asset-form').validate({
     errorClass: 'validation-error',
     errorElement: 'span',
     rules: {
-     firstName: {
-        required: true,
-        lettersOnly: true
+      name: {
+        required: true
       },
-      lastName: {
+      code: {
         required: true,
-        lettersOnly: true
+        minlength: 2,
+        maxlength: 6
+      },
+      address: {
+        required: true
       }
     }
   });
