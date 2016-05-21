@@ -14,6 +14,8 @@ public class ItemMapper implements IMapper<ItemEntity, ItemModel> {
 
   @Override
   public void toModel(ItemModel itemModel, ItemEntity itemEntity) {
+    if(itemEntity == null) return;
+
     itemModel.setId(itemEntity.getId());
     itemModel.setCode(itemEntity.getCode());
     itemModel.setName(itemEntity.getName());
@@ -26,6 +28,8 @@ public class ItemMapper implements IMapper<ItemEntity, ItemModel> {
 
   @Override
   public void toEntity(ItemEntity itemEntity, ItemModel itemModel) {
+    if(itemModel == null) return;
+
     itemEntity.setCode(itemModel.getCode());
     itemEntity.setName(itemModel.getName());
     itemEntity.setCount(itemModel.getCount());

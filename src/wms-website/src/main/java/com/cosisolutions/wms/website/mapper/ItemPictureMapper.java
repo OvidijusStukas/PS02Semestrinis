@@ -12,6 +12,8 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
 
   @Override
   public void toModel(ItemPictureModel itemPictureModel, ItemPictureEntity itemPictureEntity) {
+    if(itemPictureEntity == null) return;
+
     itemPictureModel.setId(itemPictureEntity.getId());
     itemPictureModel.setData(itemPictureEntity.getData());
 
@@ -20,6 +22,8 @@ public class ItemPictureMapper implements IMapper<ItemPictureEntity, ItemPicture
 
   @Override
   public void toEntity(ItemPictureEntity itemPictureEntity, ItemPictureModel itemPictureModel) {
+    if(itemPictureModel == null) return;
+
     itemPictureEntity.setData(itemPictureModel.getData());
 
     if(itemPictureModel.getId() > 0)

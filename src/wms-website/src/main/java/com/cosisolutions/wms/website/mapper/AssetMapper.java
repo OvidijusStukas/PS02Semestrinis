@@ -12,6 +12,8 @@ public class AssetMapper implements IMapper<AssetEntity, AssetModel> {
 
   @Override
   public void toModel(AssetModel assetModel, AssetEntity assetEntity) {
+    if(assetEntity == null) return;
+
     assetModel.setId(assetEntity.getId());
     assetModel.setCode(assetEntity.getCode());
     assetModel.setName(assetEntity.getName());
@@ -23,6 +25,8 @@ public class AssetMapper implements IMapper<AssetEntity, AssetModel> {
 
   @Override
   public void toEntity(AssetEntity assetEntity, AssetModel assetModel) {
+    if(assetModel == null) return;
+
     assetEntity.setCode(assetModel.getCode());
     assetEntity.setName(assetModel.getName());
     assetEntity.setAddress(assetModel.getAddress());

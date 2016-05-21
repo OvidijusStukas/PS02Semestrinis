@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 public class AccountMapper implements IMapper<AccountEntity, AccountModel> {
   @Override
   public void toModel(AccountModel model, AccountEntity accountEntity) {
+    if(accountEntity == null) return;
+
     model.setId(accountEntity.getId());
     model.setEmail(accountEntity.getEmail());
     model.setLastName(accountEntity.getLastName());
@@ -18,6 +20,8 @@ public class AccountMapper implements IMapper<AccountEntity, AccountModel> {
 
   @Override
   public void toEntity(AccountEntity entity, AccountModel accountModel) {
+    if(accountModel == null) return;
+
     entity.setEmail(accountModel.getEmail());
     entity.setPassword(accountModel.getPassword());
     entity.setFirstName(accountModel.getFirstName());

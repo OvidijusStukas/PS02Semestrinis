@@ -12,6 +12,8 @@ public class ItemGroupMapper implements IMapper<ItemGroupEntity, ItemGroupModel>
 
   @Override
   public void toModel(ItemGroupModel itemGroupModel, ItemGroupEntity itemGroupEntity) {
+    if(itemGroupEntity == null) return;
+
     itemGroupModel.setId(itemGroupEntity.getId());
     itemGroupModel.setName(itemGroupEntity.getName());
 
@@ -20,6 +22,8 @@ public class ItemGroupMapper implements IMapper<ItemGroupEntity, ItemGroupModel>
 
   @Override
   public void toEntity(ItemGroupEntity itemGroupEntity, ItemGroupModel itemGroupModel) {
+    if(itemGroupModel == null) return;
+
     itemGroupEntity.setName(itemGroupModel.getName());
 
     if(itemGroupModel.getId() > 0)
