@@ -161,15 +161,15 @@
         <div id="right-sidebar" class="span3">
             <div id="right-sidebar-control" class="text-center"><span class="glyphicon glyphicon-chevron-left vertical-middle"></span></div>
             <h5 class="text-center white-text">Asset info </h5>
-            <div class="text-center white-links"><span class="glyphicon glyphicon-pencil"></span><a href="#"> Edit</a></div><br>
+            <div class="text-center white-links"><span class="glyphicon glyphicon-pencil"></span><a th:href="@{assets/edit(id=${model.id})}"> Edit</a></div><br>
             <h5 class="text-center white-text"><span class="glyphicon glyphicon-home"></span> Name:</h5><br>
-            <div class="text-center grey-text">TEST ASSET</div><br>
+            <div class="text-center grey-text" th:text="${model.name}"></div><br>
             <h5 class="text-center white-text"><span class="glyphicon glyphicon-pencil"></span> Code:</h5><br>
-            <div class="text-center grey-text">TEST ASSET CODE</div><br>
+            <div class="text-center grey-text" th:text="${model.code}"></div><br>
             <h5 class="text-center white-text"><span class="glyphicon glyphicon-pencil"></span> Description:</h5><br>
-            <div class="text-center grey-text">TEST ASSET DESCRIPTION</div><br>
-            <h5 class="text-center white-text"><span class="glyphicon glyphicon-map-marker"></span> Adress:</h5><br>
-            <div class="text-center grey-text">TEST ASSET ADRESS</div><br>
+            <div class="text-center grey-text" th:text="${model.description}"></div><br>
+            <h5 class="text-center white-text"><span class="glyphicon glyphicon-map-marker"></span> Address:</h5><br>
+            <div class="text-center grey-text" th:text="${model.address}"></div><br>
         </div>
     </div>
 </div>

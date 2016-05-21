@@ -13,6 +13,6 @@
     <property name="address"      column="address"      length="512" type="string"/>
     <property name="description"  column="description"               type="text"/>
 
-    <many-to-one name="account" column="account_id" class="com.cosisolutions.wms.website.entity.AccountEntity"/>
+    <many-to-one name="account" column="account_id" class="com.cosisolutions.wms.website.entity.AccountEntity" lazy="false"/>
   </class>
 </hibernate-mapping>
