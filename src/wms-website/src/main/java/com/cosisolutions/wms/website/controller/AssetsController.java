@@ -11,13 +11,16 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping(value = {"/Assets"})
+@RequestMapping(value = {"/assets"})
 public class AssetsController {
-
-
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public ModelAndView index() {
         return new ModelAndView("assets/management");
+    }
+
+    @RequestMapping(value = {"add"}, method = RequestMethod.GET)
+    public ModelAndView add() {
+        return new ModelAndView("assets/add");
     }
 }

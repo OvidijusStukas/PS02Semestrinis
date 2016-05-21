@@ -155,6 +155,25 @@ body {
     margin-top: 50px;
 }
 
+#add-asset-container {
+    background-color: rgba(34,34,34,0.5);
+    height: 100%;
+}
+
+#asset-add-container {
+    position: relative;
+    transform: translateY(50%);
+    border-radius: 10px;
+    min-height: 300px;
+    max-width: 400px;
+    border: solid rgba(8, 8, 8, 0.3);
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#asset-add-form {
+    margin-bottom: 10px;
+}
+
 /* Footer configs */
 #footer-content {
     margin-top: 20px;

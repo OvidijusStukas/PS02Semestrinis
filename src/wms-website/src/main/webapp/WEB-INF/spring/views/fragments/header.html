@@ -30,7 +30,15 @@
             <a th:href="@{/}"><span class="glyphicon glyphicon-home"></span> Home</a>
           </li>
           <li sec:authorize="isAuthenticated()">
-            <a th:href="@{/Assets}"><span class="glyphicon glyphicon-list-alt"></span> Assets</a>
+            <li class="dropdown">
+              <a th:href="@{/assets}" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Assets</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" class="text-center">Asset 1</a></li>
+                  <li><a href="#" class="text-center">Asset 2</a></li>
+                  <li><a href="#" class="text-center">Asset 3</a></li>
+                  <li><a th:href="@{/assets/add}" class="text-center"><span class="glyphicon glyphicon-plus-sign"></span> Add new</a></li>
+                </ul>
+            </li>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
