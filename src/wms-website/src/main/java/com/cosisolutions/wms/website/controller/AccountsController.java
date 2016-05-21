@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,11 +38,13 @@ public class AccountsController {
     @Autowired
     private RegistrationValidator registrationValidator;
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(value = {"","/", "login"}, method = RequestMethod.GET)
     public ModelAndView index() {
         return new ModelAndView("accounts/login");
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"edit"}, method = RequestMethod.GET)
     public ModelAndView edit() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,6 +59,7 @@ public class AccountsController {
         return modelAndView;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"edit"}, method = RequestMethod.POST)
     public ModelAndView edit(@ModelAttribute("model") AccountModel model,
                              BindingResult result, SessionStatus status) {
@@ -78,6 +82,7 @@ public class AccountsController {
         return new ModelAndView("home/dashboard");
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(value = {"registration"}, method = RequestMethod.GET)
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView("accounts/registration");
@@ -85,6 +90,7 @@ public class AccountsController {
         return modelAndView;
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(value = {"registration"}, method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute("model") AccountModel accountModel,
                                      BindingResult result, SessionStatus status) {
@@ -113,6 +119,7 @@ public class AccountsController {
         return new ModelAndView("accounts/login");
     }
 
+    @PreAuthorize("isAnonymous()")
     @ResponseBody
     @RequestMapping(value = {"registration/validation"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String registrationValidation(@RequestParam(value = "email") String email) {
