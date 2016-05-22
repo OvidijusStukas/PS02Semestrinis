@@ -185,6 +185,33 @@ public class ItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"search"}, method = RequestMethod.GET)
+    public ModelAndView search(@RequestParam("search") String search, @RequestParam("assetId") Integer assetId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return new ModelAndView("errors/403");
+        }
+
+        AssetModel assetModel = new AssetModel();
+        assetMapper.toModel(assetModel, assetEntity);
+
+        List<ItemEntity> items = itemRepository.search(assetEntity, search);
+        items.stream().forEach(item -> {
+            item.setPicture(itemPictureRepository.getEntity(item));
+        });
+
+        ModelAndView modelAndView = new ModelAndView("items/dashboard");
+        modelAndView.addObject("model", assetModel);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+        modelAndView.addObject("groups", itemGroupRepository.getEntities(assetEntity));
+        modelAndView.addObject("items", items);
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"addGroup"}, method = RequestMethod.GET)
     public ModelAndView addGroup(@RequestParam("assetId") Integer assetId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

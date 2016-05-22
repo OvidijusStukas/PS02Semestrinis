@@ -65,8 +65,8 @@ $(function() {
     var $search = $("#search");
 
     $search.keyup(function (e) {
-        if (e.keyCode == 13 && $search.text().length > 0) {
-            $("#search-href").click();
+        if (e.keyCode == 13) {
+            document.getElementById("search-href").click();
         }
     });
 }(jQuery));
@@ -103,4 +103,9 @@ function remove(id) {
                 $("#add-item-link").notify("Remove failed", "error");
         }
     })
+}
+
+function searchItems(assetId) {
+    "use strict";
+    window.location = "/items/search?assetId=" + assetId + "&search=" + $("#search").val();
 }

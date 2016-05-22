@@ -26,9 +26,9 @@
         <div id="item-gallery" class="span6">
             <div id="dashboard-control" class="row">
                 <div class="input-group stylish-input-group">
-                    <input id="search" type="text" class="form-control" placeholder="Search">
+                    <input id="search" type="text" class="form-control" placeholder="Search" th:value="${#httpServletRequest.getParameter('search') != null}?${#httpServletRequest.getParameter('search')}">
                     <span class="input-group-addon">
-                        <a id="search-href" href="#"><span class="glyphicon glyphicon-search"></span></a>
+                        <a id="search-href" th:href="'javascript:searchItems('+${model.id}+')'"><span class="glyphicon glyphicon-search"></span></a>
                     </span>
                 </div>
                 &nbsp;
