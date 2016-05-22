@@ -9,7 +9,7 @@
     <div id="asset-add-container" class="container text-center">
         <h2 id="aset-add-heading" class="text-center">Add new item group</h2>
         <hr/>
-        <form id="asset-form" th:action="@{/items/add(assetId=${assetId})}" th:object="${model}" method="POST">
+        <form id="asset-form" th:action="@{/items/addGroup(assetId=${assetId})}" th:object="${model}" method="POST">
             <div class="form-group has-feedback has-feedback-left">
                 <input id="item-group-name" th:field="*{name}" class="form-control input-element" name="name" type="text" placeholder="Item group name" required/>
                 <i class="glyphicon glyphicon-tag form-control-feedback"></i>

@@ -13,13 +13,13 @@
             <ul id="group-list" class="left-sidebar-tabs white-text text-center">
                 <li th:each="group : ${groups}" th:id="'group-'+${group.id}">
                     <span class="glyphicon glyphicon-tag">
-                        <a class="white-links" th:href="@{/items/edit(groupId=${group.id})}" th:text="' '+${group.name}+' '"></a>
+                        <a class="white-links" th:href="@{/items/editGroup(groupId=${group.id})}" th:text="' '+${group.name}+' '"></a>
                     </span>
                     <a class="slite-left" th:href="'javascript:removeGroup('+${group.id}+');'">
                         <span class="glyphicon glyphicon-remove white-text"></span>
                     </a>
                 </li>
-                <li><span class="glyphicon glyphicon-plus-sign"><a class="white-links" th:href="@{/items/add(assetId=${model.id})}"> Add new</a></span></li>
+                <li><span class="glyphicon glyphicon-plus-sign"><a class="white-links" th:href="@{/items/addGroup(assetId=${model.id})}"> Add new</a></span></li>
             </ul>
         </div>
 

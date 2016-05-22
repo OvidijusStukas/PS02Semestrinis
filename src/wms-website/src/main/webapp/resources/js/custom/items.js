@@ -65,7 +65,7 @@ function removeGroup(groupId) {
     $.ajax({
         dataType: "json",
         contentType: "application/json",
-        url: "items/remove?groupId="+groupId,
+        url: "items/removeGroup?groupId="+groupId,
         success: function(data) {
            if(data === true) {
              $("#group-list").notify("Removed successfully", "success");

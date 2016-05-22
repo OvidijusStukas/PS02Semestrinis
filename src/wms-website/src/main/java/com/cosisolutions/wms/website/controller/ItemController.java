@@ -55,8 +55,8 @@ public class ItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = {"add"}, method = RequestMethod.GET)
-    public ModelAndView add(@RequestParam("assetId") Integer assetId) {
+    @RequestMapping(value = {"addGroup"}, method = RequestMethod.GET)
+    public ModelAndView addGroup(@RequestParam("assetId") Integer assetId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
 
@@ -72,8 +72,8 @@ public class ItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = {"add"}, method = RequestMethod.POST)
-    public ModelAndView add(@RequestParam("assetId") Integer assetId, @ModelAttribute("model") ItemGroupModel model) {
+    @RequestMapping(value = {"addGroup"}, method = RequestMethod.POST)
+    public ModelAndView addGroup(@RequestParam("assetId") Integer assetId, @ModelAttribute("model") ItemGroupModel model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
 
@@ -99,8 +99,8 @@ public class ItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = {"edit"}, method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam("groupId") Integer groupId) {
+    @RequestMapping(value = {"editGroup"}, method = RequestMethod.GET)
+    public ModelAndView editGroup(@RequestParam("groupId") Integer groupId) {
         ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, groupId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
@@ -119,8 +119,8 @@ public class ItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = {"edit"}, method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("model") ItemGroupModel model) {
+    @RequestMapping(value = {"editGroup"}, method = RequestMethod.POST)
+    public ModelAndView editGroup(@ModelAttribute("model") ItemGroupModel model) {
         ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, model.getId());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
@@ -145,8 +145,8 @@ public class ItemController {
 
     @PreAuthorize("isAuthenticated()")
     @ResponseBody
-    @RequestMapping(value = {"remove"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String remove(@RequestParam("groupId") Integer groupId) {
+    @RequestMapping(value = {"removeGroup"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String removeGroup(@RequestParam("groupId") Integer groupId) {
         ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, groupId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
