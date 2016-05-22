@@ -72,6 +72,7 @@ $(function() {
 }(jQuery));
 
 function removeGroup(groupId) {
+    var $group = $("#group-"+groupId);
     "use strict";
     $.ajax({
         dataType: "json",
@@ -80,15 +81,19 @@ function removeGroup(groupId) {
         success: function(data) {
            if(data === true) {
              $("#group-list").notify("Removed successfully", "success");
-             $("#group-"+groupId).remove();
+             $group.remove();
            }
            else
-             $("#group-list").notify("Remove failed", "error");
+             $group.children().last().notify("Remove failed", "error");
+        },
+        error: function () {
+            $group.children().last().notify("Remove failed", "error");
         }
     })
 }
 
 function remove(id) {
+    var $item = $("#item-"+id);
     "use strict";
     $.ajax({
         dataType: "json",
@@ -97,10 +102,13 @@ function remove(id) {
         success: function(data) {
             if(data === true) {
                 $("#add-item-link").notify("Removed successfully", "success");
-                $("#item-"+id).remove();
+                $item.remove();
             }
             else
-                $("#add-item-link").notify("Remove failed", "error");
+                $item.children().first().notify("Remove failed", "error");
+        },
+        error: function () {
+            $item.children().first().notify("Remove failed", "error");
         }
     })
 }
