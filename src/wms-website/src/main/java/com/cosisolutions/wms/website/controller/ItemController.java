@@ -59,9 +59,7 @@ public class ItemController {
         assetMapper.toModel(assetModel, assetEntity);
 
         List<ItemEntity> items = itemRepository.getEntities(assetEntity);
-        items.stream().forEach(item -> {
-            item.setPicture(itemPictureRepository.getEntity(item));
-        });
+        items.stream().forEach(item -> item.setPicture(itemPictureRepository.getEntity(item)));
 
         ModelAndView modelAndView = new ModelAndView("items/dashboard");
         modelAndView.addObject("model", assetModel);
@@ -198,9 +196,33 @@ public class ItemController {
         assetMapper.toModel(assetModel, assetEntity);
 
         List<ItemEntity> items = itemRepository.search(assetEntity, search);
-        items.stream().forEach(item -> {
-            item.setPicture(itemPictureRepository.getEntity(item));
-        });
+        items.stream().forEach(item -> item.setPicture(itemPictureRepository.getEntity(item)));
+
+        ModelAndView modelAndView = new ModelAndView("items/dashboard");
+        modelAndView.addObject("model", assetModel);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+        modelAndView.addObject("groups", itemGroupRepository.getEntities(assetEntity));
+        modelAndView.addObject("items", items);
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"searchGroup"}, method = RequestMethod.GET)
+    public ModelAndView searchGroup(@RequestParam("groupId") Integer groupId, @RequestParam("assetId") Integer assetId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
+        ItemGroupEntity groupEntity = itemGroupRepository.getEntity(ItemGroupEntity.class, groupId);
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName()) || groupEntity.getAsset().getId() != assetEntity.getId()) {
+            return new ModelAndView("errors/403");
+        }
+
+        AssetModel assetModel = new AssetModel();
+        assetMapper.toModel(assetModel, assetEntity);
+
+        List<ItemEntity> items = itemRepository.searchGroup(assetEntity, groupEntity);
+        items.stream().forEach(item -> item.setPicture(itemPictureRepository.getEntity(item)));
 
         ModelAndView modelAndView = new ModelAndView("items/dashboard");
         modelAndView.addObject("model", assetModel);
