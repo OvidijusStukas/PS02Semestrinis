@@ -66,6 +66,7 @@
             <div class="text-center grey-text" th:text="${model.description}"></div><br>
             <h5 class="text-center white-text"><span class="glyphicon glyphicon-map-marker"></span> Address:</h5><br>
             <div class="text-center grey-text" th:text="${model.address}"></div><br>
+            <div class="text-center"><a th:href=@{/items/export(assetId=${model.id})} class="white-links btn btn-default" type="button"><span class="glyphicon glyphicon-export white-links"></span> Export all item data to Excel</a></div>
         </div>
     </div>
 </div>
