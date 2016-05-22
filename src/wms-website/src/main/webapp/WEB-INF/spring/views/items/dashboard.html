@@ -34,171 +34,17 @@
                 &nbsp;
                 <span id="add-item-link" class="glyphicon glyphicon-plus-sign pull-left"><a class="white-links" th:href="@{/items/add(assetId=${model.id})}"> Add new Item</a></span>
             </div>
-            <div id="thumbnail-container" class="row ">
-                <div class="col-sm-6 col-md-2">
+            <div id="thumbnail-container" class="row">
+                <div th:id="'item-'+${item.id}" th:each="item : ${items}" class="col-sm-6 col-md-2">
                     <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
+                        <img th:src="${item.picture.data}" alt="picture">
                         <div class="caption">
-                            <h3 class="white-text">Item 1 name</h3>
-                            <p class="white-text">Item 1 description</p>
-                            <p class="white-text">Item 1 count</p>
+                            <h3 class="white-text" th:text="${item.name}"></h3>
+                            <p class="white-text" th:text="${item.description}"></p>
+                            <p class="white-text" th:text="${item.count}"></p>
                             <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 2 name</h3>
-                            <p class="white-text">Item 2 description</p>
-                            <p class="white-text">Item 2 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 3 name</h3>
-                            <p class="white-text">Item 3 description</p>
-                            <p class="white-text">Item 3 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 4 name</h3>
-                            <p class="white-text">Item 4 description</p>
-                            <p class="white-text">Item 4 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 5 name</h3>
-                            <p class="white-text">Item 5 description</p>
-                            <p class="white-text">Item 5 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 6 name</h3>
-                            <p class="white-text">Item 6 description</p>
-                            <p class="white-text">Item 6 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 1 name</h3>
-                            <p class="white-text">Item 1 description</p>
-                            <p class="white-text">Item 1 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 2 name</h3>
-                            <p class="white-text">Item 2 description</p>
-                            <p class="white-text">Item 2 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 3 name</h3>
-                            <p class="white-text">Item 3 description</p>
-                            <p class="white-text">Item 3 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 4 name</h3>
-                            <p class="white-text">Item 4 description</p>
-                            <p class="white-text">Item 4 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 5 name</h3>
-                            <p class="white-text">Item 5 description</p>
-                            <p class="white-text">Item 5 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail thumbnail-decor">
-                        <img src="..." alt="Nera img">
-                        <div class="caption">
-                            <h3 class="white-text">Item 6 name</h3>
-                            <p class="white-text">Item 6 description</p>
-                            <p class="white-text">Item 6 count</p>
-                            <p>
-                                <span class="glyphicon glyphicon-pencil white-text"></span><a href="#"> Edit</a>
-                                <a href="#"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
+                                <span class="glyphicon glyphicon-pencil white-text"></span><a th:href="@{/items/edit(itemId=${item.id})}"> Edit</a>
+                                <a th:href="'javascript:remove('+${item.id}+')'"> Delete</a><span class="glyphicon glyphicon-remove white-text slite-left"></span>
                             </p>
                         </div>
                     </div>

@@ -11,9 +11,7 @@ import com.cosisolutions.wms.website.mapper.ItemMapper;
 import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.models.ItemGroupModel;
 import com.cosisolutions.wms.website.models.ItemModel;
-import com.cosisolutions.wms.website.repository.AssetRepository;
-import com.cosisolutions.wms.website.repository.BaseRepository;
-import com.cosisolutions.wms.website.repository.ItemGroupRepository;
+import com.cosisolutions.wms.website.repository.*;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +21,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = {"/items"})
@@ -34,15 +34,15 @@ public class ItemController {
     @Autowired
     private AssetFactory assetFactory;
     @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
     private AssetRepository assetRepository;
     @Autowired
     private ItemGroupMapper itemGroupMapper;
     @Autowired
     private ItemGroupRepository itemGroupRepository;
     @Autowired
-    private BaseRepository<ItemEntity> itemRepository;
-    @Autowired
-    private BaseRepository<ItemPictureEntity> itemPictureRepository;
+    private ItemPictureRepository itemPictureRepository;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -58,10 +58,16 @@ public class ItemController {
         AssetModel assetModel = new AssetModel();
         assetMapper.toModel(assetModel, assetEntity);
 
+        List<ItemEntity> items = itemRepository.getEntities(assetEntity);
+        items.stream().forEach(item -> {
+            item.setPicture(itemPictureRepository.getEntity(item));
+        });
+
         ModelAndView modelAndView = new ModelAndView("items/dashboard");
         modelAndView.addObject("model", assetModel);
         modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
         modelAndView.addObject("groups", itemGroupRepository.getEntities(assetEntity));
+        modelAndView.addObject("items", items);
         return modelAndView;
     }
 
@@ -225,6 +231,27 @@ public class ItemController {
 
         try {
             itemGroupRepository.deleteEntity(ItemGroupEntity.class, groupId);
+        } catch (HibernateException e) {
+            return "false";
+        }
+        return "true";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    @RequestMapping(value = {"remove"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String remove(@RequestParam("id") Integer id) {
+        ItemEntity entity = itemRepository.getEntity(ItemEntity.class, id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return "false";
+        }
+
+        try {
+            itemRepository.deleteEntity(ItemEntity.class, id);
         } catch (HibernateException e) {
             return "false";
         }

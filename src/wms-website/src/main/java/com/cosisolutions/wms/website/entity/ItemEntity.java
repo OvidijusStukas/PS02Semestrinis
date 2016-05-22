@@ -12,6 +12,7 @@ public class ItemEntity implements Serializable {
     private String description;
     private AssetEntity asset;
     private ItemGroupEntity group;
+    private ItemPictureEntity picture;
 
     public int getId() {
         return id;
@@ -67,5 +68,13 @@ public class ItemEntity implements Serializable {
 
     public void setGroup(ItemGroupEntity group) {
       this.group = group;
+    }
+
+    public ItemPictureEntity getPicture() {
+        return picture;
+    }
+
+    public void setPicture(ItemPictureEntity picture) {
+        this.picture = picture;
     }
 }

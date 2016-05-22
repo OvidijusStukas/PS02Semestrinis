@@ -87,3 +87,20 @@ function removeGroup(groupId) {
         }
     })
 }
+
+function remove(id) {
+    "use strict";
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json",
+        url: "items/remove?id="+id,
+        success: function(data) {
+            if(data === true) {
+                $("#add-item-link").notify("Removed successfully", "success");
+                $("#item-"+id).remove();
+            }
+            else
+                $("#add-item-link").notify("Remove failed", "error");
+        }
+    })
+}
