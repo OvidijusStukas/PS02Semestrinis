@@ -25,14 +25,13 @@
 
         <div id="item-gallery" class="span6">
             <div id="dashboard-control" class="row">
-                <div class="input-group stylish-input-group">
+                <a id="add-item-button" class="white-links btn btn-default col-xs-2" th:href="@{/items/add(assetId=${model.id})}" type="button"><span id="add-item-link" class="glyphicon glyphicon-plus-sign text-center"> Add new Item</span></a>
+                <div class="input-group stylish-input-group col-xs-9">
                     <input id="search" type="text" class="form-control" placeholder="Search" th:value="${#httpServletRequest.getParameter('search') != null}?${#httpServletRequest.getParameter('search')}">
                     <span class="input-group-addon">
                         <a id="search-href" th:href="'javascript:searchItems('+${model.id}+')'"><span class="glyphicon glyphicon-search"></span></a>
                     </span>
                 </div>
-                &nbsp;
-                <span id="add-item-link" class="glyphicon glyphicon-plus-sign pull-left"><a class="white-links" th:href="@{/items/add(assetId=${model.id})}"> Add new Item</a></span>
             </div>
             <div id="thumbnail-container" class="row">
                 <div th:id="'item-'+${item.id}" th:each="item : ${items}" class="col-sm-6 col-md-2">
