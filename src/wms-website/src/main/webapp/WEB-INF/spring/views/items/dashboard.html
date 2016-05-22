@@ -13,7 +13,7 @@
             <ul id="group-list" class="left-sidebar-tabs white-text text-center">
                 <li th:each="group : ${groups}" th:id="'group-'+${group.id}">
                     <span class="glyphicon glyphicon-tag">
-                        <a class="white-links" href="#" th:text="' '+${group.name}+' '"></a>
+                        <a class="white-links" th:href="@{searchGroup(groupId=${group.id},assetId=${model.id})}" th:text="' '+${group.name}+' '"></a>
                     </span>
                     <a class="slite-left" th:href="@{/items/editGroup(groupId=${group.id})}"  >
                         <span class="glyphicon glyphicon glyphicon-pencil white-text"></span>
@@ -28,7 +28,7 @@
 
         <div id="item-gallery" class="span6">
             <div id="dashboard-control" class="row">
-                <a id="add-item-button" class="white-links btn btn-default col-xs-2" th:href="@{/items/add(assetId=${model.id})}" type="button"><span id="add-item-link" class="glyphicon glyphicon-plus-sign text-center"> Add new Item</span></a>
+                <a id="add-item-button" class="white-links btn btn-default col-xs-2" th:href="@{/items/add(assetId=${model.id})}" type="button"><span id="add-item-link" class="glyphicon glyphicon-plus-sign text-center"> Add item</span></a>
                 <div class="input-group stylish-input-group col-xs-9">
                     <input id="search" type="text" class="form-control" placeholder="Search" th:value="${#httpServletRequest.getParameter('search') != null}?${#httpServletRequest.getParameter('search')}">
                     <span class="input-group-addon">
