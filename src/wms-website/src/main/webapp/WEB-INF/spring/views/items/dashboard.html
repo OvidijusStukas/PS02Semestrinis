@@ -26,13 +26,13 @@
         <div id="item-gallery" class="span6">
             <div id="dashboard-control" class="row">
                 <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input id="search" type="text" class="form-control" placeholder="Search">
                     <span class="input-group-addon">
-                        <a href="#"><span class="glyphicon glyphicon-search"></span></a>
+                        <a id="search-href" href="#"><span class="glyphicon glyphicon-search"></span></a>
                     </span>
                 </div>
                 &nbsp;
-                <span id="add-item-link" class="glyphicon glyphicon-plus-sign pull-left"><a class="white-links" href="#"> Add new Item</a></span>
+                <span id="add-item-link" class="glyphicon glyphicon-plus-sign pull-left"><a class="white-links" th:href="@{/items/add(assetId=${model.id})}"> Add new Item</a></span>
             </div>
             <div id="thumbnail-container" class="row ">
                 <div class="col-sm-6 col-md-2">

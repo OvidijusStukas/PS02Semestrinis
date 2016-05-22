@@ -48,3 +48,30 @@ function logout() {
       || regex.test(value)
   }, "Letters and spaces only please");
 }(jQuery));
+
+(function ($) {
+  "use strict";
+  var $picture = $("#picture");
+  $picture.fileinput({
+    "showUpload": false,
+    "maxFileCount": 1,
+    allowedFileTypes: ['image']
+  });
+
+  $picture.on('fileloaded', function (event, file) {
+    console.log(event);
+    var reader = new FileReader();
+    reader.onload = function(readerEvt) {
+      var binaryString = readerEvt.target.result;
+      document.getElementById("picturebase64").value = btoa(binaryString);
+      document.getElementById("picturetype").value = file.type;
+    };
+
+    reader.readAsBinaryString(file);
+  });
+
+  $picture.on('filecleared', function () {
+    document.getElementById("picturebase64").value = "";
+    document.getElementById("picturetype").value = "";
+  });
+}(jQuery));

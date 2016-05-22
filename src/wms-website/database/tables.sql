@@ -62,12 +62,12 @@ CREATE TABLE IF NOT EXISTS item (
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS item_picture (
-  id       INT  NOT NULL AUTO_INCREMENT,
-  item_id  INT  NOT NULL,
-  data     TEXT NOT NULL,
+  id       INT      NOT NULL AUTO_INCREMENT,
+  item_id  INT      NOT NULL,
+  data     LONGTEXT NOT NULL,
 
   CONSTRAINT `pk__item_picture__id`      PRIMARY KEY (`id`),
-  CONSTRAINT `fk__item_picture__item_id` FOREIGN KEY (`item_id`) REFERENCES item(`id`)
+  CONSTRAINT `fk__item_picture__item_id` FOREIGN KEY (`item_id`) REFERENCES item(`id`) ON DELETE CASCADE
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS asset_account_group (

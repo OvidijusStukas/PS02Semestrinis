@@ -10,6 +10,6 @@
 
     <property name="data" column="data" type="text"/>
 
-    <one-to-one name="item" foreign-key="item_id" class="com.cosisolutions.wms.website.entity.ItemEntity"/>
+    <many-to-one name="item" column="item_id" class="com.cosisolutions.wms.website.entity.ItemEntity" cascade="delete"/>
   </class>
 </hibernate-mapping>

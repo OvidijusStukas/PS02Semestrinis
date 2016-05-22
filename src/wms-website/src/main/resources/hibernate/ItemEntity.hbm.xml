@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="com.cosisolutions.wms.website.entity.ItemEntity" table="item_group">
+  <class name="com.cosisolutions.wms.website.entity.ItemEntity" table="item">
 
     <id name="id" column="id" type="int">
       <generator class="identity"/>
@@ -13,7 +13,7 @@
     <property name="code"         column="code"         type="string"/>
     <property name="description"  column="description"  type="text"/>
 
-    <one-to-one name="asset" foreign-key="asset_id" class="com.cosisolutions.wms.website.entity.AssetEntity"/>
-    <one-to-one name="group" foreign-key="group_id" class="com.cosisolutions.wms.website.entity.ItemGroupEntity"/>
+    <many-to-one name="asset" column="asset_id" class="com.cosisolutions.wms.website.entity.AssetEntity" lazy="false"/>
+    <many-to-one name="group" column="group_id" class="com.cosisolutions.wms.website.entity.ItemGroupEntity" lazy="false"/>
   </class>
 </hibernate-mapping>

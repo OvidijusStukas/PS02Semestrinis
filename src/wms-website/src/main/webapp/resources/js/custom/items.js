@@ -60,6 +60,17 @@ $(function() {
     });
 });
 
+(function ($) {
+    "use strict";
+    var $search = $("#search");
+
+    $search.keyup(function (e) {
+        if (e.keyCode == 13 && $search.text().length > 0) {
+            $("#search-href").click();
+        }
+    });
+}(jQuery));
+
 function removeGroup(groupId) {
     "use strict";
     $.ajax({

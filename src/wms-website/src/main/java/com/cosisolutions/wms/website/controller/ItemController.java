@@ -1,13 +1,18 @@
 package com.cosisolutions.wms.website.controller;
 
 import com.cosisolutions.wms.website.entity.AssetEntity;
+import com.cosisolutions.wms.website.entity.ItemEntity;
 import com.cosisolutions.wms.website.entity.ItemGroupEntity;
+import com.cosisolutions.wms.website.entity.ItemPictureEntity;
 import com.cosisolutions.wms.website.factory.AssetFactory;
 import com.cosisolutions.wms.website.mapper.AssetMapper;
 import com.cosisolutions.wms.website.mapper.ItemGroupMapper;
+import com.cosisolutions.wms.website.mapper.ItemMapper;
 import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.models.ItemGroupModel;
+import com.cosisolutions.wms.website.models.ItemModel;
 import com.cosisolutions.wms.website.repository.AssetRepository;
+import com.cosisolutions.wms.website.repository.BaseRepository;
 import com.cosisolutions.wms.website.repository.ItemGroupRepository;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = {"/items"})
 public class ItemController {
     @Autowired
+    private ItemMapper itemMapper;
+    @Autowired
     private AssetMapper assetMapper;
     @Autowired
     private AssetFactory assetFactory;
@@ -31,7 +38,11 @@ public class ItemController {
     @Autowired
     private ItemGroupMapper itemGroupMapper;
     @Autowired
-    private ItemGroupRepository itemgroupEntityRepository;
+    private ItemGroupRepository itemGroupRepository;
+    @Autowired
+    private BaseRepository<ItemEntity> itemRepository;
+    @Autowired
+    private BaseRepository<ItemPictureEntity> itemPictureRepository;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -50,8 +61,64 @@ public class ItemController {
         ModelAndView modelAndView = new ModelAndView("items/dashboard");
         modelAndView.addObject("model", assetModel);
         modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
-        modelAndView.addObject("groups", itemgroupEntityRepository.getEntities(assetEntity));
+        modelAndView.addObject("groups", itemGroupRepository.getEntities(assetEntity));
         return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"add"}, method = RequestMethod.GET)
+    public ModelAndView add(@RequestParam("assetId") Integer assetId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return new ModelAndView("errors/403");
+        }
+
+        ModelAndView modelAndView = new ModelAndView("items/add");
+        modelAndView.addObject("model", new ItemModel());
+        modelAndView.addObject("assetId", assetId);
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+        modelAndView.addObject("groups", itemGroupRepository.getEntities(assetEntity));
+        return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"add"}, method = RequestMethod.POST)
+    public ModelAndView add(@RequestParam("assetId") Integer assetId, @RequestParam("groupId") Integer groupId,
+                            @RequestParam("picturebase64") String base64, @RequestParam("picturetype") String type,
+                            @ModelAttribute("model") ItemModel model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
+        ItemGroupEntity groupEntity = itemGroupRepository.getEntity(ItemGroupEntity.class, groupId);
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName()) || groupEntity.getAsset().getId() != assetEntity.getId()) {
+            return new ModelAndView("errors/403");
+        }
+
+        String pictureData = String.format("data:%s;base64,%s", type, base64);
+        try {
+            ItemEntity itemEntity = new ItemEntity();
+            itemMapper.toEntity(itemEntity, model);
+            itemEntity.setAsset(assetEntity);
+            itemEntity.setGroup(groupEntity);
+            Integer id = itemRepository.insertEntity(itemEntity);
+            itemEntity = itemRepository.getEntity(ItemEntity.class, id);
+            ItemPictureEntity pictureEntity = new ItemPictureEntity();
+            pictureEntity.setData(pictureData);
+            pictureEntity.setItem(itemEntity);
+            itemPictureRepository.insertEntity(pictureEntity);
+        } catch (HibernateException e) {
+            ModelAndView modelAndView = new ModelAndView("items/add");
+            modelAndView.addObject("model", model);
+            modelAndView.addObject("assetId", assetId);
+            modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+            return modelAndView;
+        }
+
+        String route = String.format("redirect:/items?id=%d", assetId);
+        return new ModelAndView(route);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -86,7 +153,7 @@ public class ItemController {
             ItemGroupEntity itemGroupEntity = new ItemGroupEntity();
             itemGroupMapper.toEntity(itemGroupEntity, model);
             itemGroupEntity.setAsset(assetEntity);
-            itemgroupEntityRepository.insertEntity(itemGroupEntity);
+            itemGroupRepository.insertEntity(itemGroupEntity);
         } catch (HibernateException e) {
             ModelAndView modelAndView = new ModelAndView("items/add-item-group");
             modelAndView.addObject("model", model);
@@ -101,7 +168,7 @@ public class ItemController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"editGroup"}, method = RequestMethod.GET)
     public ModelAndView editGroup(@RequestParam("groupId") Integer groupId) {
-        ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, groupId);
+        ItemGroupEntity entity = itemGroupRepository.getEntity(ItemGroupEntity.class, groupId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
 
@@ -121,7 +188,7 @@ public class ItemController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"editGroup"}, method = RequestMethod.POST)
     public ModelAndView editGroup(@ModelAttribute("model") ItemGroupModel model) {
-        ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, model.getId());
+        ItemGroupEntity entity = itemGroupRepository.getEntity(ItemGroupEntity.class, model.getId());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
 
@@ -132,7 +199,7 @@ public class ItemController {
 
         try {
             itemGroupMapper.toEntity(entity, model);
-            itemgroupEntityRepository.updateEntity(entity);
+            itemGroupRepository.updateEntity(entity);
         } catch (HibernateException e) {
             ModelAndView modelAndView = new ModelAndView("items/add-item-group");
             modelAndView.addObject("model", model);
@@ -147,7 +214,7 @@ public class ItemController {
     @ResponseBody
     @RequestMapping(value = {"removeGroup"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String removeGroup(@RequestParam("groupId") Integer groupId) {
-        ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, groupId);
+        ItemGroupEntity entity = itemGroupRepository.getEntity(ItemGroupEntity.class, groupId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
 
@@ -157,7 +224,7 @@ public class ItemController {
         }
 
         try {
-            itemgroupEntityRepository.deleteEntity(ItemGroupEntity.class, groupId);
+            itemGroupRepository.deleteEntity(ItemGroupEntity.class, groupId);
         } catch (HibernateException e) {
             return "false";
         }
