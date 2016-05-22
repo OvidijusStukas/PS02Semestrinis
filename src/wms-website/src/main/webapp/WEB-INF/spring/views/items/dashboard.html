@@ -28,7 +28,7 @@
 
         <div id="item-gallery" class="span6">
             <div id="dashboard-control" class="row">
-                <a id="add-item-button" class="white-links btn btn-default col-xs-2" th:href="@{/items/add(assetId=${model.id})}" type="button"><span id="add-item-link" class="glyphicon glyphicon-plus-sign text-center"> Add item</span></a>
+                <a id="add-item-button" class="white-links btn btn-default col-xs-2" th:href="@{/items/add(assetId=${model.id})}" type="button"><span id="add-item-link" class="glyphicon glyphicon-plus-sign pull-left"></span><div id="add-item-text">Add item</div></a>
                 <div class="input-group stylish-input-group col-xs-9">
                     <input id="search" type="text" class="form-control" placeholder="Search" th:value="${#httpServletRequest.getParameter('search') != null}?${#httpServletRequest.getParameter('search')}">
                     <span class="input-group-addon">
