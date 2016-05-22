@@ -2,11 +2,14 @@ package com.cosisolutions.wms.website.controller;
 
 import com.cosisolutions.wms.website.entity.AccountEntity;
 import com.cosisolutions.wms.website.entity.AssetEntity;
+import com.cosisolutions.wms.website.entity.ItemGroupEntity;
 import com.cosisolutions.wms.website.factory.AssetFactory;
 import com.cosisolutions.wms.website.mapper.AssetMapper;
 import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.repository.AccountRepository;
+import com.cosisolutions.wms.website.repository.AssetRepository;
 import com.cosisolutions.wms.website.repository.BaseRepository;
+import com.cosisolutions.wms.website.repository.ItemGroupRepository;
 import com.cosisolutions.wms.website.validator.AssetModelValidator;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +33,13 @@ public class AssetsController {
     @Autowired
     private AssetFactory assetFactory;
     @Autowired
+    private AssetRepository assetRepository;
+    @Autowired
     private AccountRepository accountRepository;
     @Autowired
     private AssetModelValidator assetModelValidator;
     @Autowired
-    private BaseRepository<AssetEntity> assetRepository;
+    private ItemGroupRepository itemGroupRepository;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"add"}, method = RequestMethod.GET)
@@ -69,6 +74,11 @@ public class AssetsController {
             assetMapper.toEntity(entity, model);
             entity.setAccount(accountEntity);
             id = assetRepository.insertEntity(entity);
+            entity = assetRepository.getEntity(AssetEntity.class, id);
+            ItemGroupEntity itemGroupEntity = new ItemGroupEntity();
+            itemGroupEntity.setName("Default Group");
+            itemGroupEntity.setAsset(entity);
+            itemGroupRepository.insertEntity(itemGroupEntity);
         } catch (HibernateException e) {
             return modelAndView;
         }
