@@ -100,4 +100,49 @@ public class ItemController {
         String route = String.format("redirect:/items?id=%d", assetId);
         return new ModelAndView(route);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"edit"}, method = RequestMethod.GET)
+    public ModelAndView edit(@RequestParam("groupId") Integer groupId) {
+        ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, groupId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return new ModelAndView("errors/403");
+        }
+
+        ItemGroupModel model = new ItemGroupModel();
+        itemGroupMapper.toModel(model, entity);
+
+        ModelAndView modelAndView = new ModelAndView("items/edit-item-group");
+        modelAndView.addObject("model", model);
+        return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"edit"}, method = RequestMethod.POST)
+    public ModelAndView edit(@ModelAttribute("model") ItemGroupModel model) {
+        ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, model.getId());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return new ModelAndView("errors/403");
+        }
+
+        try {
+            itemGroupMapper.toEntity(entity, model);
+            itemgroupEntityRepository.updateEntity(entity);
+        } catch (HibernateException e) {
+            ModelAndView modelAndView = new ModelAndView("items/add-item-group");
+            modelAndView.addObject("model", model);
+            return modelAndView;
+        }
+
+        String route = String.format("redirect:/items?id=%d", assetEntity.getId());
+        return new ModelAndView(route);
+    }
 }

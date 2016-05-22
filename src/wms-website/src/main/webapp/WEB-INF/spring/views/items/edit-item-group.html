@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<th:block th:include="fragments/header :: top-menu"/>
+
+<div id="add-asset-container" class="container-flex">
+    <div id="asset-add-container" class="container text-center">
+        <h2 id="aset-add-heading" class="text-center">Edit item group</h2>
+        <hr/>
+        <form id="asset-form" th:action="@{/items/edit}" th:object="${model}" method="POST">
+            <div class="form-group has-feedback has-feedback-left">
+                <input th:name="*{id}" th:field="*{id}" type="hidden"/>
+                <input id="item-group-name" th:field="*{name}" class="form-control input-element" name="name" type="text" placeholder="Item group name" required/>
+                <i class="glyphicon glyphicon-tag form-control-feedback"></i>
+            </div>
+            <hr/>
+            <button class="btn btn-lg btn-default btn-block" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+<th:block th:include="fragments/footer :: footer"/>
+<th:block th:include="fragments/header :: scripts"/>
+<script th:src="@{/js/custom/assetValidation.js}" type="application/javascript"></script>
+</body>
+</html>
