@@ -11,7 +11,11 @@ import com.cosisolutions.wms.website.mapper.ItemMapper;
 import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.models.ItemGroupModel;
 import com.cosisolutions.wms.website.models.ItemModel;
-import com.cosisolutions.wms.website.repository.*;
+import com.cosisolutions.wms.website.repository.AssetRepository;
+import com.cosisolutions.wms.website.repository.ItemGroupRepository;
+import com.cosisolutions.wms.website.repository.ItemPictureRepository;
+import com.cosisolutions.wms.website.repository.ItemRepository;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +26,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 @Controller
@@ -362,5 +369,33 @@ public class ItemController {
             return "false";
         }
         return "true";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"export"}, method = RequestMethod.GET)
+    public ModelAndView export(@RequestParam("assetId") Integer assetId,
+                                        HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return new ModelAndView("errors/403");
+        }
+
+        Workbook workbook = assetFactory.createProductExportFile(assetEntity);
+        try {
+            response.setContentType("application/vnd.ms-excel; charset=utf-8");
+            response.setHeader("Content-Disposition", String.format("inline;filename=%s.%s",assetEntity.getName(),"xls"));
+            OutputStream outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            //Failed to write
+        }
+
+        String route = String.format("redirect:/items?id=%d", assetEntity.getId());
+        return new ModelAndView(route);
     }
 }
