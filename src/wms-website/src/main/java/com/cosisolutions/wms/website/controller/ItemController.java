@@ -128,6 +128,63 @@ public class ItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"edit"}, method = RequestMethod.GET)
+    public ModelAndView edit(@RequestParam("itemId") Integer id) {
+        ItemEntity itemEntity = itemRepository.getEntity(ItemEntity.class, id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, itemEntity.getAsset().getId());
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return new ModelAndView("errors/403");
+        }
+
+        ItemModel itemModel = new ItemModel();
+        itemMapper.toModel(itemModel, itemEntity);
+        ModelAndView modelAndView = new ModelAndView("items/edit");
+        modelAndView.addObject("model", itemModel);
+        modelAndView.addObject("assetId", assetEntity.getId());
+        modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+        modelAndView.addObject("groups", itemGroupRepository.getEntities(assetEntity));
+        return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = {"edit"}, method = RequestMethod.POST)
+    public ModelAndView edit(@RequestParam("assetId") Integer assetId, @RequestParam("groupId") Integer groupId,
+                             @RequestParam("picturebase64") String base64, @RequestParam("picturetype") String type,
+                             @ModelAttribute("model") ItemModel model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, assetId);
+        ItemGroupEntity groupEntity = itemGroupRepository.getEntity(ItemGroupEntity.class, groupId);
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName()) || groupEntity.getAsset().getId() != assetEntity.getId()) {
+            return new ModelAndView("errors/403");
+        }
+
+        String pictureData = String.format("data:%s;base64,%s", type, base64);
+        try {
+            ItemEntity itemEntity = new ItemEntity();
+            itemMapper.toEntity(itemEntity, model);
+            itemEntity.setAsset(assetEntity);
+            itemEntity.setGroup(groupEntity);
+            itemRepository.updateEntity(itemEntity);
+            ItemPictureEntity pictureEntity = itemPictureRepository.getEntity(itemEntity);
+            pictureEntity.setData(pictureData);
+            itemPictureRepository.updateEntity(pictureEntity);
+        } catch (HibernateException e) {
+            ModelAndView modelAndView = new ModelAndView("items/add");
+            modelAndView.addObject("model", model);
+            modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+            modelAndView.addObject("assetId", assetId);
+            return modelAndView;
+        }
+
+        String route = String.format("redirect:/items?id=%d", assetId);
+        return new ModelAndView(route);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"addGroup"}, method = RequestMethod.GET)
     public ModelAndView addGroup(@RequestParam("assetId") Integer assetId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

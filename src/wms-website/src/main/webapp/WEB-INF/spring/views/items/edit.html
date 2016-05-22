@@ -9,21 +9,34 @@
     <div id="item-add-container" class="container text-center">
         <h2 id="aset-add-heading" class="text-center">Edit item</h2>
         <hr/>
-        <form id="asset-form" method="POST">
-            <div class="form-group has-feedback has-feedback-left">
-                <input id="item-name" class="form-control input-element" name="name" type="text" placeholder="Item name" required/>
+        <form id="asset-form" th:action="@{/items/edit(assetId=${assetId})}" th:object="${model}" method="POST">
+            <input id="picturebase64" name="picturebase64" type="hidden"/>
+            <input id="picturetype" name="picturetype" type="hidden"/>
+            <input id="id" th:name="*{id}" th:field="*{id}" type="hidden"/>
+            <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                <input id="item-name" th:field="*{name}" class="form-control input-element" name="name" type="text" placeholder="Item name" required/>
                 <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="validation-error"></span>
             </div>
-            <div class="form-group has-feedback has-feedback-left">
-                <input id="item-code" class="form-control input-element" name="code" type="text" placeholder="Item code" required/>
+            <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
+                <input id="item-code" th:field="*{code}" class="form-control input-element" name="code" type="text" placeholder="Item code" required/>
                 <i class="glyphicon glyphicon-barcode form-control-feedback"></i>
+                <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" th:class="validation-error"></span>
             </div>
             <div class="form-group has-feedback has-feedback-left">
-                <textarea class="form-control" rows="5" id="asset-description" placeholder="Description"></textarea>
+                <textarea th:field="*{description}" class="form-control" rows="5" name="description" id="asset-description" placeholder="Description"></textarea>
             </div>
-            <div class="form-group has-feedback has-feedback-left">
-                <input id="item-count" class="form-control input-element" name="count" type="number" placeholder="Item count" required/>
+            <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('count')}? 'has-error'">
+                <input id="item-count" th:field="*{count}" class="form-control input-element" min="0" name="count" type="number" placeholder="Item count" required/>
                 <i class="glyphicon glyphicon-stats form-control-feedback"></i>
+                <span th:if="${#fields.hasErrors('count')}" th:errors="*{count}" th:class="validation-error"></span>
+            </div>
+            <div class="form-group has-feedback has-feedback-left" th:classappend="${#fields.hasErrors('count')}? 'has-error'">
+                <select id="groupId" name="groupId" class="form-control input-element select-padding" title="Item groups">
+                    <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+                </select>
+                <i class="glyphicon glyphicon-tag form-control-feedback"></i>
+                <span th:if="${#fields.hasErrors('count')}" th:errors="*{count}" th:class="validation-error"></span>
             </div>
             <input id="picture" type="file" class="file">
             <hr/>
