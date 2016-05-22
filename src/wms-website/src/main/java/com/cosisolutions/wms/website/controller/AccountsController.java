@@ -84,7 +84,7 @@ public class AccountsController {
         }
 
         status.setComplete();
-        ModelAndView modelAndView = new ModelAndView("home/dashboard");
+        ModelAndView modelAndView = new ModelAndView("home/index");
         modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
         return modelAndView;
     }
