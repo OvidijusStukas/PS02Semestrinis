@@ -337,3 +337,11 @@ body {
     margin-right: 30px;
     margin-top: 0px;
 }
+
+#item-thumbnail {
+    min-height: 340px;
+}
+
+#item-image {
+    max-height: 170px;
+}
