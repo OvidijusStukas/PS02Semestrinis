@@ -75,3 +75,16 @@ function logout() {
     document.getElementById("picturetype").value = "";
   });
 }(jQuery));
+
+(function ($) {
+  "use strict";
+  var url = window.location.href;
+  if(url.indexOf("items") > -1) {
+    $("#asset-menu").addClass('active');
+    $("#home-menu").removeClass('active');
+  }
+  else {
+    $("#home-menu").addClass('active');
+    $("#asset-menu").removeClass('active');
+  }
+}(jQuery));
