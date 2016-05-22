@@ -8,18 +8,15 @@ import com.cosisolutions.wms.website.mapper.ItemGroupMapper;
 import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.models.ItemGroupModel;
 import com.cosisolutions.wms.website.repository.AssetRepository;
-import com.cosisolutions.wms.website.repository.BaseRepository;
 import com.cosisolutions.wms.website.repository.ItemGroupRepository;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -144,5 +141,26 @@ public class ItemController {
 
         String route = String.format("redirect:/items?id=%d", assetEntity.getId());
         return new ModelAndView(route);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    @RequestMapping(value = {"remove"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String remove(@RequestParam("groupId") Integer groupId) {
+        ItemGroupEntity entity = itemgroupEntityRepository.getEntity(ItemGroupEntity.class, groupId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AssetEntity assetEntity = assetRepository.getEntity(AssetEntity.class, entity.getAsset().getId());
+
+        // Trying to load other user asset
+        if(!assetEntity.getAccount().getEmail().equals(auth.getName())) {
+            return "false";
+        }
+
+        try {
+            itemgroupEntityRepository.deleteEntity(ItemGroupEntity.class, groupId);
+        } catch (HibernateException e) {
+            return "false";
+        }
+        return "true";
     }
 }

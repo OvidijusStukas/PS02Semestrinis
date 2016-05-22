@@ -59,3 +59,20 @@ $(function() {
         toggleLeft();
     });
 });
+
+function removeGroup(groupId) {
+    "use strict";
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json",
+        url: "items/remove?groupId="+groupId,
+        success: function(data) {
+           if(data === true) {
+             $("#group-list").notify("Removed successfully", "success");
+             $("#group-"+groupId).remove();
+           }
+           else
+             $("#group-list").notify("Remove failed", "error");
+        }
+    })
+}
