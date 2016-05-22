@@ -11,12 +11,14 @@
             <div id="left-sidebar-control" class="text-center"><span class="glyphicon glyphicon-chevron-right vertical-middle"></span></div>
             <h5 class="text-center white-text">Item Groups</h5>
             <ul id="group-list" class="left-sidebar-tabs white-text text-center">
-                <li><span class="glyphicon glyphicon-tag"><a class="white-links" href="#"> TEST 1 </a></span><a class="slite-left" href="#"><span class="glyphicon glyphicon-remove white-text"></span></a></li>
-                <li><span class="glyphicon glyphicon-tag"><a class="white-links" href="#"> TEST 2 </a></span><a class="slite-left" href="#"><span class="glyphicon glyphicon-remove white-text"></span></a></li>
-                <li><span class="glyphicon glyphicon-tag"><a class="white-links" href="#"> TEST 3 </a></span><a class="slite-left" href="#"><span class="glyphicon glyphicon-remove white-text"></span></a></li>
-                <li><span class="glyphicon glyphicon-tag"><a class="white-links" href="#"> TEST 4 </a></span><a class="slite-left" href="#"><span class="glyphicon glyphicon-remove white-text"></span></a></li>
-                <li><span class="glyphicon glyphicon-tag"><a class="white-links" href="#"> TEST 5 </a></span><a class="slite-left" href="#"><span class="glyphicon glyphicon-remove white-text"></span></a></li>
-                <li><span class="glyphicon glyphicon-tag"><a class="white-links" href="#"> TEST 6 </a></span><a class="slite-left" href="#"><span class="glyphicon glyphicon-remove white-text"></span></a></li>
+                <li th:each="group : ${groups}">
+                    <span class="glyphicon glyphicon-tag">
+                        <a class="white-links" th:href="@{/items/edit(groupId=${group.id})}" th:text="' '+${group.name}+' '"></a>
+                    </span>
+                    <a class="slite-left" th:href="@{/items/remove(groupId=${model.id})}">
+                        <span class="glyphicon glyphicon-remove white-text"></span>
+                    </a>
+                </li>
                 <li><span class="glyphicon glyphicon-plus-sign"><a class="white-links" th:href="@{/items/add(assetId=${model.id})}"> Add new</a></span></li>
             </ul>
         </div>

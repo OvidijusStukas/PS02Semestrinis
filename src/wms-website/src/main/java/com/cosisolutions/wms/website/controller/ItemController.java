@@ -9,6 +9,7 @@ import com.cosisolutions.wms.website.models.AssetModel;
 import com.cosisolutions.wms.website.models.ItemGroupModel;
 import com.cosisolutions.wms.website.repository.AssetRepository;
 import com.cosisolutions.wms.website.repository.BaseRepository;
+import com.cosisolutions.wms.website.repository.ItemGroupRepository;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +34,7 @@ public class ItemController {
     @Autowired
     private ItemGroupMapper itemGroupMapper;
     @Autowired
-    private BaseRepository<ItemGroupEntity> itemgroupEntityRepository;
+    private ItemGroupRepository itemgroupEntityRepository;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -52,6 +53,7 @@ public class ItemController {
         ModelAndView modelAndView = new ModelAndView("items/dashboard");
         modelAndView.addObject("model", assetModel);
         modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
+        modelAndView.addObject("groups", itemgroupEntityRepository.getEntities(assetEntity));
         return modelAndView;
     }
 
