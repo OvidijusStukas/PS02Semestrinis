@@ -87,7 +87,8 @@
   <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
     <property name="prefix" value="/WEB-INF/spring/views/"/>
     <property name="templateMode" value="HTML" />
-    <property name="cacheable" value="false"/>
+    <property name="cacheable" value="true"/>
+    <property name="characterEncoding" value="UTF-8"/>
     <property name="suffix" value=".html" />
   </bean>
 

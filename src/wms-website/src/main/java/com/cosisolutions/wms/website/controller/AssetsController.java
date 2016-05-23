@@ -112,7 +112,7 @@ public class AssetsController {
         modelAndView.addObject("assets", assetFactory.createAssetModelsForUser());
 
         if(result.hasErrors()) {
-            return  modelAndView;
+            return modelAndView;
         }
 
         //Get current user

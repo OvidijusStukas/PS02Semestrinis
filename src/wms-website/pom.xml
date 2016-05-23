@@ -20,7 +20,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- Logging properties -->
-    <log4j.logging.file>${project.build.directory}/${project.build.finalName}.log</log4j.logging.file>
+    <log4j.logging.file>${project.build.directory}\${project.build.finalName}.log</log4j.logging.file>
 
     <!-- Dependency versions -->
     <spring.security.version>4.1.0.RELEASE</spring.security.version>
@@ -53,7 +53,7 @@
         <jdbc.username>wmsWebsite</jdbc.username>
         <jdbc.password>XwtwKjlq8Z7iquvo1JZu</jdbc.password>
         <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-        <jdbc.url>jdbc:mysql://51.255.45.253:3306/wms_dev?useSSL=false</jdbc.url>
+        <jdbc.url>jdbc:mysql://51.255.45.253:3306/wms_dev?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=UTF-8</jdbc.url>
       </properties>
     </profile>
   </profiles>
@@ -214,6 +214,7 @@
         <configuration>
           <source>${jdk.version}</source>
           <target>${jdk.version}</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
